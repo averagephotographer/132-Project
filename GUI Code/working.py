@@ -8,22 +8,12 @@ DEBUG = False
 class Q(object):
     # inputs the question number and the answer
     def __init__(self, text, dif):
-        # self.number = number
-        self.text = text
-        self.question = {}
-        self.ans = []
+        self.text = text # this is the question's text
+        self.ans = [] # all 4 answers are saved in a list with the correct answer listed first
         self.dif = dif # this is the difficutly rating (from 1-20)
         if DEBUG == True:
-            print "number: {}, text: {}".format(number, text)
+            print "text: {}, dif: {}".format(text, dif)
     
-    # @property
-    # def number(self):
-    #     return self._number
-    
-    # @number.setter
-    # def number(self, value):
-    #     self._number = value
-
     @property
     def text(self):
         return self._text
@@ -31,14 +21,6 @@ class Q(object):
     @text.setter
     def text(self, string):
         self._text = string
-    
-    @property
-    def question(self):
-        return self._question
-    
-    @question.setter
-    def question(self, string):
-        self._question = string
     
     @property
     def dif(self):
