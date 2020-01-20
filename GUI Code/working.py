@@ -10,7 +10,7 @@ class Q(object):
     def __init__(self, text, dif):
         # self.number = number
         self.text = text
-        self.question = {}
+        #self.question = {}
         self.ans = []
         self.dif = dif # this is the difficutly rating (from 1-20)
         if DEBUG == True:
@@ -48,22 +48,49 @@ class Q(object):
     def dif(self, value):
         self._dif = value
 
+
+
     def addAnswers(self, a, b, c, d):
-        self._ans = [a, b, c, d]
+        self.ans = [a, b, c, d]
         if DEBUG == True:
             print self._ans
 
     # this should eventually return:
     # The question then four answers in random order
     def __str__(self):
-        return "The question is:\n{} \nAnswers: \na: {} \nb: {} \nc: {} \nd: {}".format(self._text, self._ans[0], self._ans[1], self._ans[2], self._ans[3])
+        return "The question is:\n{} \nAnswers: \na: {} \nb: {} \nc: {} \nd: {}".format(self.text, self.ans[0], self.ans[1], self.ans[2], self.ans[3])
+
+
+class Riddles(Frame):
+    def __init__(self, parent):
+        Frame.__init__(self, parent)
+
+    ### creates the  20 questions
+    def Questions(self):
+        q1 = Q("How are you?", 0)
+        #######################
+        q1.addanswers(self, "Good", "okay", "I guess,", "Great", "bleh")
+
+    def setupGUI(self):
+        pass
+        
+    
 
 
 
-q1 = Q("How are you?", 0)
-q1.addAnswers("Good", "okay, I guess", "GREAT!", "bleh")
+##q1 = Q("How are you?", 0)
+###q1.addAnswers("Good", "okay, I guess", "GREAT!", "bleh")
+
+## creates the window
+WIDTH = 500
+HEIGHT = 400
+window = Tk()
+window.title("How Smart Are You?")
+
+k = Riddles(window)
+window.mainloop()
 
 
-print q1
-if DEBUG == True:
-    print "Difficulty: {}".format(q1.dif)
+##print q1
+##if DEBUG == True:
+    ##print "Difficulty: {}".format(q1.dif)
