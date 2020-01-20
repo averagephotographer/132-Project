@@ -115,7 +115,7 @@ class Riddles(Frame):
         if DEBUG == True:
             print words
 
-## creates the window
+# creates the window
 WIDTH = 500
 HEIGHT = 400
 
