@@ -1,1 +1,1 @@
-dic = {a: "info"}
+dic = {a: }
