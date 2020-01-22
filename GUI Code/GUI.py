@@ -1,7 +1,5 @@
 # This is the skeleton for the Riddles GUI
-
 from Tkinter import *
-
 DEBUG = True
 
 # question class
@@ -12,7 +10,7 @@ class Q(object):
         self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first
         self.dif = dif                  # this is the difficutly rating (from 1-20)
         if DEBUG == True:
-            print "text: {}, dif: {}".format(text, dif)
+            print "text: {}, dif: {}".format(self.text, self.dif)
     
     @property
     def text(self):
@@ -50,6 +48,7 @@ class Q(object):
             self.text, self.ans[0], self.ans[1], self.ans[2], self.ans[3])
 
 
+# this is the game function
 class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
@@ -66,9 +65,17 @@ class Riddles(Frame):
         if DEBUG == True:
             print "Difficulty: {}".format(q1.dif)
     
-    def setScore(self, score):
-        # should display the score to the GUI
-        pass
+    # note: this isn't working yet, the "else:" keeps returning an error
+    # def setStatus(self, score):
+    #     # should display the status to the GUI
+    #     Riddles.text.config(state = NORMAL)
+    #     Riddles.text.delete("1.0", END)
+    #     # if the player gets the question wrong
+    #     if (Q.text == None):
+    #         Riddles.text.insert(END, "GAME OVER\n\nYou scored {} points".fomat(Riddles.points)
+    #     else:
+    #         # display the status
+    #         Riddles.text.insert(END, "\n you have" + Riddles.points + "points.")
 
     def setupGUI(self):
         self.pack(fill=BOTH, expand=1)
@@ -77,7 +84,7 @@ class Riddles(Frame):
         Riddles.player_input.pack(side=BOTTOM, fill=X)
         Riddles.player_input.focus()
 
-        img = None 
+        img = None
         Riddles.image = Label(self, width=WIDTH / 2, image = img)
         Riddles.image.image = img
         Riddles.image.pack(side=LEFT, fill=Y)
@@ -93,6 +100,7 @@ class Riddles(Frame):
     def answer(self, answer):
         if answer == self.answers[0]:
             print "You got it right!"
+            poinnts += Q.dif
         else:
             print "Sorry, that's wrong"
         # function that adds one point to the player's score if they don't get the question wrong
@@ -101,7 +109,7 @@ class Riddles(Frame):
     def play(self):
         self.questions()
         self.setupGUI()
-        # self.setScore()   # not finished yet
+        # self.setStatus()   # not finished yet
 
     def process(self, event):
         action = Riddles.player_input.get()
