@@ -1,1 +1,1 @@
-dic = {a: }
+print "this is a test"
