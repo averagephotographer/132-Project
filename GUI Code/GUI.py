@@ -57,9 +57,11 @@ class Riddles(Frame):
     def questions(self):
         q1 = Q("How are you?", 0)
         q2 = Q("What is the most difficult thing you can think of", 20)
+        q3 = Q("Who's on first", 12)
         #######################
         q1.addAnswers("Good", "okay, I guess", "Great", "bleh")
         q2.addAnswers("Rocket Science", "Neurosicence", "Computer Science", "*insert hard job here")
+        q3.addAnswers("What's on second","I don't know's on third", "Why's in left field", "Tomorrow's the pitcher")
         
         print q1
         if DEBUG == True:
@@ -78,23 +80,21 @@ class Riddles(Frame):
     #         Riddles.text.insert(END, "\n you have" + Riddles.points + "points.")
 
     def setupGUI(self):
-        self.pack(fill=BOTH, expand=1)
-        Riddles.player_input = Entry(self, bg="white")
-        Riddles.player_input.bind("<Return>", self.process)
-        Riddles.player_input.pack(side=BOTTOM, fill=X)
-        Riddles.player_input.focus()
+        l1 = Label(window, text = "Question: \n{}".format("Who's on first"), anchor = "center")
+        l1.grid(row = 0, columnspan = 2)
 
-        img = None
-        Riddles.image = Label(self, width=WIDTH / 2, image = img)
-        Riddles.image.image = img
-        Riddles.image.pack(side=LEFT, fill=Y)
-        Riddles.image.pack_propagate(False)
+        l2 = Label(window, text = "A: {}".format("What's on second"))
+        l2.grid(row = 1, column = 0)
 
-        text_frame = Frame(self, width=WIDTH / 2)
-        Riddles.text = Text(text_frame, bg="lightgrey", state=DISABLED)
-        Riddles.text.pack(fill=Y, expand=1)
-        text_frame.pack(side=RIGHT, fill=Y)
-        text_frame.pack_propagate(False)
+        l3 = Label(window, text = "B: {}".format("I don't know's on third"))
+        l3.grid(row = 2, column = 0)
+
+        l4 = Label(window, text = "C: {}".format("Why's in left field"))
+        l4.grid(row = 1, column = 1)
+
+        l5 = Label(window, text = "D: {}".format("Tomorrow is the pitcher"))
+        l5.grid(row = 2, column = 1)
+
     
     # function to check wheter the question is right or wrong
     def answer(self, answer):
