@@ -1,0 +1,1 @@
+map buttons to arrow keys or the actual letters
