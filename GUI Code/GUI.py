@@ -1,6 +1,7 @@
 # This is the skeleton for the Riddles GUI
 from Tkinter import *
-DEBUG = True
+import random
+DEBUG = False
 
 # question class
 class Q(object):
@@ -63,9 +64,11 @@ class Riddles(Frame):
         q2.addAnswers("Rocket Science", "Neurosicence", "Computer Science", "*insert hard job here")
         q3.addAnswers("What's on second","I don't know's on third", "Why's in left field", "Tomorrow's the pitcher")
         
-        print q1
+        Riddles.currentQuestion = q3
         if DEBUG == True:
             print "Difficulty: {}".format(q1.dif)
+            print currentQuestion
+        
     
     # note: this isn't working yet, the "else:" keeps returning an error
     # def setStatus(self, score):
@@ -80,20 +83,20 @@ class Riddles(Frame):
     #         Riddles.text.insert(END, "\n you have" + Riddles.points + "points.")
 
     def setupGUI(self):
-        l1 = Label(window, text = "Question: \n{}".format("Who's on first"), anchor = "center")
-        l1.grid(row = 0, columnspan = 2)
+        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center")
+        self.l1.grid(row = 0, columnspan = 2)
 
-        l2 = Label(window, text = "A: {}".format("What's on second"))
-        l2.grid(row = 1, column = 0)
+        self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]))
+        self.l2.grid(row = 1, column = 0)
 
-        l3 = Label(window, text = "B: {}".format("I don't know's on third"))
-        l3.grid(row = 2, column = 0)
+        self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[1]))
+        self.l3.grid(row = 2, column = 0)
 
-        l4 = Label(window, text = "C: {}".format("Why's in left field"))
-        l4.grid(row = 1, column = 1)
+        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[2]))
+        self.l4.grid(row = 1, column = 1)
 
-        l5 = Label(window, text = "D: {}".format("Tomorrow is the pitcher"))
-        l5.grid(row = 2, column = 1)
+        self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
+        self.l5.grid(row = 2, column = 1)
 
     
     # function to check wheter the question is right or wrong
@@ -124,10 +127,9 @@ class Riddles(Frame):
             print words
 
 # creates the window
-WIDTH = 500
-HEIGHT = 400
 
 window = Tk()
+
 window.title("How Smart Are You?")
 
 k = Riddles(window)
