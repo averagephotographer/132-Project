@@ -54,6 +54,13 @@ class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
 
+    def questionList(self):
+        # the number of questions (this should change as we add more)
+        qn = 3      
+        Riddles.qList = []
+        for i in range(1, qn + 1):
+            Riddles.qList.append('q'+str(i))
+
     ### creates the  20 questions
     def questions(self):
         q1 = Q("How are you?", 0)
@@ -64,24 +71,21 @@ class Riddles(Frame):
         q2.addAnswers("Rocket Science", "Neurosicence", "Computer Science", "*insert hard job here")
         q3.addAnswers("What's on second","I don't know's on third", "Why's in left field", "Tomorrow's the pitcher")
         
-        Riddles.currentQuestion = q3
-        if DEBUG == True:
-            print "Difficulty: {}".format(q1.dif)
-            print currentQuestion
-        
-    
-    # note: this isn't working yet, the "else:" keeps returning an error
-    # def setStatus(self, score):
-    #     # should display the status to the GUI
-    #     Riddles.text.config(state = NORMAL)
-    #     Riddles.text.delete("1.0", END)
-    #     # if the player gets the question wrong
-    #     if (Q.text == None):
-    #         Riddles.text.insert(END, "GAME OVER\n\nYou scored {} points".fomat(Riddles.points)
-    #     else:
-    #         # display the status
-    #         Riddles.text.insert(END, "\n you have" + Riddles.points + "points.")
 
+        # This works:
+        # self.currentQuestion = q1
+        
+        # This doens't (yet):
+        # Riddles.currentQuestion = self.questions[(str(random.sample(Riddles.qList, 1))[2:-2])]
+        self.currentQuestion = self.questions[str(random.sample(Riddles.qList, 1)[2:-2])]
+        
+        
+        # Other stuff
+        # print type(currentQuestion)
+        # print currentQuestion.text
+        # print type(q1.text)
+        # print q1.text
+            
     def setupGUI(self):
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center")
         self.l1.grid(row = 0, columnspan = 2)
@@ -110,6 +114,7 @@ class Riddles(Frame):
             # we could make each question worth the number of difficulty it is
 
     def play(self):
+        self.questionList()
         self.questions()
         self.setupGUI()
         # self.setStatus()   # not finished yet
