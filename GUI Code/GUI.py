@@ -2,7 +2,6 @@
 from Tkinter import *
 import random
 DEBUG = False
-
 # question class
 class Q(object):
     # inputs the question number and the answer
@@ -10,9 +9,12 @@ class Q(object):
         self.text = text                # this is the question's text
         self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first
         self.dif = dif                  # this is the difficutly rating (from 1-20)
+        k.allQuestions.append(self)
+
         if DEBUG == True:
             print "text: {}, dif: {}".format(self.text, self.dif)
-    
+
+
     @property
     def text(self):
         return self._text
@@ -53,39 +55,29 @@ class Q(object):
 class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
+        self.allQuestions = []
 
-    def questionList(self):
-        # the number of questions (this should change as we add more)
-        qn = 3      
-        Riddles.qList = []
-        for i in range(1, qn + 1):
-            Riddles.qList.append('q'+str(i))
-
-    ### creates the  20 questions
+    # creates the  20 questions
     def questions(self):
         q1 = Q("How are you?", 0)
-        q2 = Q("What is the most difficult thing you can think of", 20)
-        q3 = Q("Who's on first", 12)
+        q2 = Q("What is the most difficult thing you can think of?", 20)
+        q3 = Q("Who's on first?", 12)
+        q4 = Q("The earth is approximately how many miles from the Sun?", 12)
         #######################
         q1.addAnswers("Good", "okay, I guess", "Great", "bleh")
         q2.addAnswers("Rocket Science", "Neurosicence", "Computer Science", "*insert hard job here")
         q3.addAnswers("What's on second","I don't know's on third", "Why's in left field", "Tomorrow's the pitcher")
-        
+        q4.addAnswers("9.3 million", "39 million", "93 million", "193 million")
 
-        # This works:
-        # self.currentQuestion = q1
+
+        # shuffles questions so they appear in random order
+        random.shuffle(self.allQuestions)
+        # sets the current question to the first 
+        self.currentQuestion = self.allQuestions[0]
         
-        # This doens't (yet):
-        # Riddles.currentQuestion = self.questions[(str(random.sample(Riddles.qList, 1))[2:-2])]
-        self.currentQuestion = self.questions[str(random.sample(Riddles.qList, 1)[2:-2])]
-        
-        
-        # Other stuff
-        # print type(currentQuestion)
-        # print currentQuestion.text
-        # print type(q1.text)
-        # print q1.text
-            
+        if DEBUG == True:
+            print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
+                            
     def setupGUI(self):
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center")
         self.l1.grid(row = 0, columnspan = 2)
@@ -93,11 +85,11 @@ class Riddles(Frame):
         self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]))
         self.l2.grid(row = 1, column = 0)
 
-        self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[1]))
-        self.l3.grid(row = 2, column = 0)
-
-        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[2]))
+        self.l4 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]))
         self.l4.grid(row = 1, column = 1)
+
+        self.l3 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
+        self.l3.grid(row = 2, column = 0)
 
         self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
         self.l5.grid(row = 2, column = 1)
@@ -114,10 +106,8 @@ class Riddles(Frame):
             # we could make each question worth the number of difficulty it is
 
     def play(self):
-        self.questionList()
         self.questions()
         self.setupGUI()
-        # self.setStatus()   # not finished yet
 
     def process(self, event):
         action = Riddles.player_input.get()
