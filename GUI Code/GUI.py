@@ -5,11 +5,10 @@ DEBUG = False
 # question class
 class Q(object):
     # inputs the question number and the answer
-    def __init__(self, text, dif):
-        self.text = text                # this is the question's text
-        self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first
-        self.dif = dif                  # this is the difficutly rating (from 1-20)
-        k.allQuestions.append(self)
+    def __init__(self, name):
+        self.text = {}               # this is the question's text
+        self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first        # this is the difficutly rating (from 1-20)
+        ##k.allQuestions.append(self)
 
         if DEBUG == True:
             print "text: {}, dif: {}".format(self.text, self.dif)
@@ -44,6 +43,9 @@ class Q(object):
         if DEBUG == True:
             print self._ans
 
+    def addQuestions(self, dif, q):
+        self._text[dif] = q
+
     # this should eventually return:
     # The question, then four answers in random order
     def __str__(self):
@@ -55,14 +57,19 @@ class Q(object):
 class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
-        self.allQuestions = []
 
     # creates the  20 questions
     def questions(self):
-        q1 = Q("How are you?", 0)
-        q2 = Q("What is the most difficult thing you can think of?", 20)
-        q3 = Q("Who's on first?", 12)
-        q4 = Q("The earth is approximately how many miles from the Sun?", 12)
+        q1 = Q("question1")
+        q2 = Q("question 2")
+        q3 = Q("question3")
+        q4 = Q("question4")
+
+        
+        q1.addQuestions("How are you?", 0)
+        q2.addQuestions("What is the most difficult thing you can think of?", 20)
+        q3.addQuestions("Who's on first?", 12)
+        q4.addQuestions("The earth is approximately how many miles from the Sun?", 12)
         #######################
         q1.addAnswers("Good", "okay, I guess", "Great", "bleh")
         q2.addAnswers("Rocket Science", "Neurosicence", "Computer Science", "*insert hard job here")
@@ -71,9 +78,10 @@ class Riddles(Frame):
 
 
         # shuffles questions so they appear in random order
-        random.shuffle(self.allQuestions)
+        #random.shuffle(
+        #random.shuffle(self.allQuestions)
         # sets the current question to the first 
-        self.currentQuestion = self.allQuestions[0]
+        self.currentQuestion = q1
         
         if DEBUG == True:
             print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
