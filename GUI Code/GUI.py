@@ -2,14 +2,15 @@
 from Tkinter import *
 import random
 DEBUG = False
+
 # question class
 class Q(object):
     # inputs the question number and the answer
     def __init__(self, name):
-        self.text = {}               # this is the question's text
-        self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first        # this is the difficutly rating (from 1-20)
-        ##k.allQuestions.append(self)
-
+        self.text = ""                  # this is the question's text
+        self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first        
+        self.dif = ""                   # this is the difficutly rating (from 1-20)
+        k.allQuestions.append(self)
         if DEBUG == True:
             print "text: {}, dif: {}".format(self.text, self.dif)
 
@@ -43,8 +44,9 @@ class Q(object):
         if DEBUG == True:
             print self._ans
 
-    def addQuestions(self, dif, q):
-        self._text[dif] = q
+    def addQuestions(self, text, dif):
+        self._text = text
+        self._dif = dif
 
     # this should eventually return:
     # The question, then four answers in random order
@@ -60,8 +62,10 @@ class Riddles(Frame):
 
     # creates the  20 questions
     def questions(self):
+        self.allQuestions = []
+
         q1 = Q("question1")
-        q2 = Q("question 2")
+        q2 = Q("question2")
         q3 = Q("question3")
         q4 = Q("question4")
 
@@ -78,10 +82,12 @@ class Riddles(Frame):
 
 
         # shuffles questions so they appear in random order
-        #random.shuffle(
-        #random.shuffle(self.allQuestions)
-        # sets the current question to the first 
-        self.currentQuestion = q1
+        random.shuffle(self.allQuestions)
+        
+        # sets the current question 
+        self.currentQuestion = self.allQuestions[0]
+        
+        # self.currentQuestion = q1
         
         if DEBUG == True:
             print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
