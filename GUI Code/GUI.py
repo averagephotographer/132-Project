@@ -1,7 +1,9 @@
 # This is the skeleton for the Riddles GUI
 from Tkinter import *
 import random
+from time import sleep
 DEBUG = False
+
 
 # question class
 class Q(object):
