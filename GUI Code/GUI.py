@@ -89,6 +89,17 @@ class Riddles(Frame):
         
         # sets the current question 
         self.currentQuestion = self.allQuestions[0]
+##        for q in Questions:
+##            if(answer = correct):
+##                print "Correct!"
+##                print "Continue? ->"
+##                if(button = pressed):
+##                    display q2
+##            else:
+##                print "Incorrect"
+##                print "Try Again?"
+##                if(button = pressed):
+##                    display q1
         
         # self.currentQuestion = q1
         
