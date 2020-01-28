@@ -4,7 +4,6 @@ import Tkinter as tk     # python 2
 import tkFont as tkfont  # python 2
 
 class SampleApp(tk.Tk):
-
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -38,7 +37,6 @@ class SampleApp(tk.Tk):
 
 
 class StartPage(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -54,7 +52,6 @@ class StartPage(tk.Frame):
 
 
 class PageOne(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -66,7 +63,6 @@ class PageOne(tk.Frame):
 
 
 class PageTwo(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
