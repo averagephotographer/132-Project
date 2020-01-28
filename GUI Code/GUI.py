@@ -89,6 +89,17 @@ class Riddles(Frame):
         
         # sets the current question 
         self.currentQuestion = self.allQuestions[0]
+##        for q in Questions:
+##            if(answer = correct):
+##                print "Correct!"
+##                print "Continue? ->"
+##                if(button = pressed):
+##                    display q2
+##            else:
+##                print "Incorrect"
+##                print "Try Again?"
+##                if(button = pressed):
+##                    display q1
         
         # self.currentQuestion = q1
         
@@ -102,14 +113,20 @@ class Riddles(Frame):
         self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]))
         self.l2.grid(row = 1, column = 0)
 
-        self.l4 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]))
-        self.l4.grid(row = 1, column = 1)
+        self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]))
+        self.l3.grid(row = 1, column = 1)
 
-        self.l3 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
-        self.l3.grid(row = 2, column = 0)
+        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
+        self.l4.grid(row = 2, column = 0)
 
         self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
         self.l5.grid(row = 2, column = 1)
+
+        # answer = raw_input("Answer: ")
+        # if answer = self.currentQuestion[0]:
+        #     righ!
+        # else:
+        #     wrong
 
     
     # function to check wheter the question is right or wrong
