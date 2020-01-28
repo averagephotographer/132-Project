@@ -44,6 +44,7 @@ class Q(object):
         if DEBUG == True:
             print self._ans
 
+
     def addQuestions(self, text, dif):
         self._text = text
         self._dif = dif
@@ -93,7 +94,7 @@ class Riddles(Frame):
             print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
                             
     def setupGUI(self):
-        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center")
+        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center", bg = "lightblue")
         self.l1.grid(row = 0, columnspan = 2)
 
         self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]))
