@@ -127,16 +127,31 @@ class Riddles(Frame):
         self.setupGUI()
 
     def process(self, event):
+        points = 0
+        
         action = Riddles.player_input.get()
         action = action.lower()
-        response = "That isn't a valid response"
-
         if (action == "quit" or action == "exit" or action == "bye" or action == "sionara!"):
             exit(0)
+        response = "That isn't a valid response"
+        if (action == self.ans[0]):
+            points += 1
+            rsponse = "correct"
+            ####green Led will light up
 
-        words = action.split()
-        if DEBUG == True:
-            print words
+        else:
+            ###red Led will light up
+            response = "incorrect"
+            
+        #action = action.lower()
+        #response = "That isn't a valid response"
+
+        #if (action == "quit" or action == "exit" or action == "bye" or action == "sionara!"):
+            #exit(0)
+
+        #words = action.split()
+        #if DEBUG == True:
+            #print words
 
 # creates the window
 
