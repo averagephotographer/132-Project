@@ -102,7 +102,7 @@ class Riddles(Frame):
 ##                    display q1
         
         # self.currentQuestion = q1
-        
+
         if DEBUG == True:
             print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
                             
