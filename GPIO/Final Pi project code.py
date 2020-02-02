@@ -13,7 +13,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(wrong, GPIO.OUT)
 GPIO.setup(correct, GPIO.OUT)
 GPIO.setup(buttons, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-#####################
+##############################################################
 
 #GPIO pins
 try:
