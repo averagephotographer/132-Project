@@ -16,7 +16,6 @@ class Q(object):
         if DEBUG == True:
             print "text: {}, dif: {}".format(self.text, self.dif)
 
-
     @property
     def text(self):
         return self._text
@@ -89,19 +88,6 @@ class Riddles(Frame):
         
         # sets the current question 
         self.currentQuestion = self.allQuestions[0]
-##        for q in Questions:
-##            if(answer = correct):
-##                print "Correct!"
-##                print "Continue? ->"
-##                if(button = pressed):
-##                    display q2
-##            else:
-##                print "Incorrect"
-##                print "Try Again?"
-##                if(button = pressed):
-##                    display q1
-        
-        # self.currentQuestion = q1
 
         if DEBUG == True:
             print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
@@ -122,53 +108,11 @@ class Riddles(Frame):
         self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
         self.l5.grid(row = 2, column = 1)
 
-        # answer = raw_input("Answer: ")
-        # if answer = self.currentQuestion[0]:
-        #     righ!
-        # else:
-        #     wrong
-
-    
-    # function to check wheter the question is right or wrong
-    def answer(self, answer):
-        if answer == self.answers[0]:
-            print "You got it right!"
-            poinnts += Q.dif
-        else:
-            print "Sorry, that's wrong"
-        # function that adds one point to the player's score if they don't get the question wrong
-            # we could make each question worth the number of difficulty it is
-
+   
     def play(self):
         self.questions()
         self.setupGUI()
-
-    def process(self, event):
-        points = 0
         
-        action = Riddles.player_input.get()
-        action = action.lower()
-        if (action == "quit" or action == "exit" or action == "bye" or action == "sionara!"):
-            exit(0)
-        response = "That isn't a valid response"
-        if (action == self.ans[0]):
-            points += 1
-            rsponse = "correct"
-            ####green Led will light up
-
-        else:
-            ###red Led will light up
-            response = "incorrect"
-            
-        #action = action.lower()
-        #response = "That isn't a valid response"
-
-        #if (action == "quit" or action == "exit" or action == "bye" or action == "sionara!"):
-            #exit(0)
-
-        #words = action.split()
-        #if DEBUG == True:
-            #print words
 
 # creates the window
 
