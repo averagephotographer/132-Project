@@ -16,6 +16,7 @@ class Q(object):
         if DEBUG == True:
             print "text: {}, dif: {}".format(self.text, self.dif)
 
+
     @property
     def text(self):
         return self._text
@@ -84,14 +85,27 @@ class Riddles(Frame):
 
 
         # shuffles questions so they appear in random order
-        random.shuffle(self.allQuestions)
-        
+        self.x = self.allQuestions
+        random.shuffle(self.x)
+
         # sets the current question 
-        self.currentQuestion = self.allQuestions[0]
+        self.currentQuestion = self.x[0]
+
+
 
         if DEBUG == True:
             print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
-                            
+
+
+    def iterator(self, event):
+        self.currentQuestion = self.x[1]
+        self.setupGUI()
+        sleep(1)
+        self.currentQuestion = self.x[2]
+        self.setupGUI()
+
+
+
     def setupGUI(self):
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center", bg = "lightblue")
         self.l1.grid(row = 0, columnspan = 2)
@@ -107,12 +121,10 @@ class Riddles(Frame):
 
         self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
         self.l5.grid(row = 2, column = 1)
-
    
     def play(self):
         self.questions()
-        self.setupGUI()
-        
+        self.setupGUI()        
 
 # creates the window
 
@@ -123,5 +135,7 @@ window.title("How Smart Are You?")
 k = Riddles(window)
 
 k.play()
+
+window.bind("<Button-1>", k.iterator)
 
 window.mainloop()
