@@ -26,13 +26,18 @@ GPIO.setup(buttons, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 ##button_1 = ans[0]
 #####################
 
-#GPIO pins
-while(True):
-    #light LED if answer is true
-    if (GPIO.input(buttons[0]) == GPIO.HIGH):
-        GPIO.output(correct, GPIO.HIGH)
-    for i in range(1,len(buttons)):
-        if(GPIO.input(buttons[i]) == GPIO.HIGH):
-            GPIO.output(wrong, GPIO.HIGH)
-##    else:
-##        GPIO.output(wrong, GPIO.HIGH)
+    #GPIO pins
+try:
+    while(True):
+        #light LED if answer is true
+        if (GPIO.input(buttons[0]) == GPIO.HIGH):
+            GPIO.output(correct, GPIO.HIGH)
+        for i in range(1,len(buttons)):
+            if(GPIO.input(buttons[i]) == GPIO.HIGH):
+                GPIO.output(wrong, GPIO.HIGH)
+    ##    else:
+    ##        GPIO.output(wrong, GPIO.HIGH)
+
+except KeyboardInterrupt:
+    # reset the GPIO pints
+    GPIO.cleanup()
