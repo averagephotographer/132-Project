@@ -66,6 +66,7 @@ class Riddles(Frame):
     # creates the  20 questions
     def questions(self):
         self.allQuestions = []
+        self.counter = 1
 
         q1 = Q("question1")
         q2 = Q("question2")
@@ -98,12 +99,13 @@ class Riddles(Frame):
 
 
     def iterator(self, event):
-        self.currentQuestion = self.x[1]
-        self.setupGUI()
-        sleep(1)
-        self.currentQuestion = self.x[2]
-        self.setupGUI()
-
+        if (self.counter < len(self.x)):
+            self.currentQuestion = self.x[self.counter]
+            self.counter += 1
+            self.setupGUI()
+        else:
+            pass
+            # insert endgam screen here
 
 
     def setupGUI(self):
