@@ -124,9 +124,12 @@ class Riddles(Frame):
 
 
         # self.answers = [ *a* , b , c , d ]
-        for i in self.answers: bn            if GPIO.input(buttons[i]) == self.answers[0]
+        for i in GPIO.input(buttons):
+            if self.answers[0] == self.answers[i]
+    
 
-
+        for i in self.answers:
+            if GPIO.input(buttons[]) == self.answers[0]
 
 
         if GPIO.input(buttons[0] == GPIO.HIGH:
@@ -162,7 +165,7 @@ class Riddles(Frame):
         self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]))
         self.l3.grid(row = 1, column = 1)
 
-        elf.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
+        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
         self.l4.grid(row = 2, column = 0)
 
         self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
