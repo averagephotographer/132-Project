@@ -2,8 +2,21 @@
 from Tkinter import *
 import random
 from time import sleep
+import RPi.GPIO as GPIO
 DEBUG = False
 
+#Setting up the LED and switch pin numbers
+wrong = 22
+correct = 20
+buttons = [12, 16, 24, 26]
+
+#Use the Broadcam pin code
+GPIO.setmode(GPIO.BCM)
+
+#Setup the LED and switch pins
+GPIO.setup(wrong, GPIO.OUT)
+GPIO.setup(correct, GPIO.OUT)
+GPIO.setup(buttons, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 # question class
 class Q(object):
@@ -103,9 +116,10 @@ class Riddles(Frame):
             self.currentQuestion = self.x[self.counter]
             self.counter += 1
             self.setupGUI()
+            GPIO.output(correct, GPIO.HIGH)
         else:
-            pass
-            # insert endgam screen here
+            GPIO.output(wrong, GPIO.HIGH)
+            # turn LED red
 
 
     def setupGUI(self):
