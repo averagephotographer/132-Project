@@ -116,16 +116,40 @@ class Riddles(Frame):
             self.currentQuestion = self.x[self.counter]
             self.counter += 1
             self.setupGUI()
+            # green LED
             GPIO.output(correct, GPIO.HIGH)
             sleep(0.5)
             GPIO.output(correct, GPIO.LOW)
 
+
+
+        # self.answers = [ *a* , b , c , d ]
+        for i in self.answers: bn            if GPIO.input(buttons[i]) == self.answers[0]
+
+
+
+
+        if GPIO.input(buttons[0] == GPIO.HIGH:
+
+
+
+
+
+        elif:
+            if (GPIO.input(buttons[0]) == GPIO.HIGH):
+                    GPIO.output(correct, GPIO.HIGH)
+                    sleep(0.5)
+                    GPIO.output(correct, GPIO.LOW)
+
+        for i in range(1,len(buttons)):
+            if(GPIO.input(buttons[i]) == GPIO.HIGH):
+                GPIO.output(wrong, GPIO.HIGH)
         else:
+            # turn LED red
             GPIO.output(wrong, GPIO.HIGH)
             sleep(0.5)
             GPIO.output(wrong, GPIO.LOW)
 
-            # turn LED red
 
 
     def setupGUI(self):
@@ -138,7 +162,7 @@ class Riddles(Frame):
         self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]))
         self.l3.grid(row = 1, column = 1)
 
-        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
+        elf.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]))
         self.l4.grid(row = 2, column = 0)
 
         self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]))
