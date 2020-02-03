@@ -117,8 +117,14 @@ class Riddles(Frame):
             self.counter += 1
             self.setupGUI()
             GPIO.output(correct, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(correct, GPIO.LOW)
+
         else:
             GPIO.output(wrong, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(wrong, GPIO.LOW)
+
             # turn LED red
 
 
