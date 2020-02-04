@@ -124,7 +124,26 @@ class Riddles(Frame):
    
     def play(self):
         self.questions()
-        self.setupGUI()        
+        self.setupGUI()
+        
+        
+
+
+###GPIO settings
+import RPi.GPIO as GPIO
+from time import sleep
+
+##setting up the LED and switch pin numbers
+wrong = 22
+correct = 20
+buttons = [12, 16, 24, 26]
+
+## use the Broadcam pin code
+GPIO.setmode(GPIO.BCM)
+##set up the LED and switch pins
+GPIO.setup(wrong, GPIO.OUT)
+GPIO.setup(correct, GPIO.OUT)
+GPIO.setup(buttons, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 # creates the window
 
