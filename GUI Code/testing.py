@@ -2,8 +2,21 @@
 from Tkinter import *
 import random
 from time import sleep
+import RPi.GPIO as GPIO
 DEBUG = False
 
+#Setting up the LED and switch pin numbers
+wrong = 22
+correct = 20
+buttons = [12, 16, 24, 26]
+
+#Use the Broadcam pin code
+GPIO.setmode(GPIO.BCM)
+
+#Setup the LED and switch pins
+GPIO.setup(wrong, GPIO.OUT)
+GPIO.setup(correct, GPIO.OUT)
+GPIO.setup(buttons, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 # question class
 class Q(object):
@@ -66,6 +79,7 @@ class Riddles(Frame):
     # creates the  20 questions
     def questions(self):
         self.allQuestions = []
+        self.counter = 1
 
         q1 = Q("question1")
         q2 = Q("question2")
@@ -98,11 +112,46 @@ class Riddles(Frame):
 
 
     def iterator(self, event):
-        self.currentQuestion = self.x[1]
-        self.setupGUI()
-        sleep(1)
-        self.currentQuestion = self.x[2]
-        self.setupGUI()
+        if (self.counter < len(self.x)):
+            self.currentQuestion = self.x[self.counter]
+            self.counter += 1
+            self.setupGUI()
+            # green LED
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(correct, GPIO.LOW)
+
+
+
+        # self.answers = [ *a* , b , c , d ]
+        for i in GPIO.input(buttons):
+            if self.answers[0] == self.answers[i]
+    
+
+        for i in self.answers:
+            if GPIO.input(buttons[]) == self.answers[0]
+
+
+        if GPIO.input(buttons[0] == GPIO.HIGH:
+
+
+
+
+
+        elif:
+            if (GPIO.input(buttons[0]) == GPIO.HIGH):
+                    GPIO.output(correct, GPIO.HIGH)
+                    sleep(0.5)
+                    GPIO.output(correct, GPIO.LOW)
+
+        for i in range(1,len(buttons)):
+            if(GPIO.input(buttons[i]) == GPIO.HIGH):
+                GPIO.output(wrong, GPIO.HIGH)
+        else:
+            # turn LED red
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(wrong, GPIO.LOW)
 
 
 
