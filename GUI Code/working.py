@@ -151,9 +151,9 @@ class Riddles(Frame):
         if (action == "quit" or action == "exit" or action == "bye" or action == "sionara!"):
             exit(0)
         response = "That isn't a valid response"
-        if (action == self.ans[0]):
-            points += 1
-            rsponse = "correct"
+        if (GPIO.input(buttons[0]) == GPIO.HIGH):
+            GPIO.output(correct, GPIO.HIGH)
+            response = "correct"
             ####green Led will light up
 
         else:
