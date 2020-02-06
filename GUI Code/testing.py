@@ -122,18 +122,23 @@ class Riddles(Frame):
             GPIO.output(correct, GPIO.LOW)
 
 
-
+"""
         # self.answers = [ *a* , b , c , d ]
+        # some function that returns whether or not our answer was correct
         for i in GPIO.input(buttons):
-            if self.answers[0] == self.answers[i]
-    
+            if (self.answers[0] == self.answers[i]):
+                # original answers #    # suffled answers #
+                pass
+
 
         for i in self.answers:
-            if GPIO.input(buttons[]) == self.answers[0]
+            if GPIO.input(buttons[i]) == self.answers[0]: 
+                pass
 
 
-        if GPIO.input(buttons[0] == GPIO.HIGH:
-
+        if GPIO.input(buttons[0] == GPIO.HIGH):
+            pass
+"""
 
 
 
@@ -144,9 +149,11 @@ class Riddles(Frame):
                     sleep(0.5)
                     GPIO.output(correct, GPIO.LOW)
 
+        
         for i in range(1,len(buttons)):
             if(GPIO.input(buttons[i]) == GPIO.HIGH):
                 GPIO.output(wrong, GPIO.HIGH)
+        
         else:
             # turn LED red
             GPIO.output(wrong, GPIO.HIGH)
@@ -173,7 +180,7 @@ class Riddles(Frame):
    
     def play(self):
         self.questions()
-        self.setupGUI()        
+        self.setupGUI() 
 
 # creates the window
 
