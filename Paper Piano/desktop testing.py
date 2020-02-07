@@ -10,6 +10,7 @@ from array import array
 from waveform_vis import WaveformVis
 from math import pi, sin
 DEBUG = True
+name = "sawtooth"
 
 MIXER_FREQ = 44100
 MIXER_SIZE = -16
@@ -34,15 +35,15 @@ def build_samples():
     
     # this is the sawtooth wave
     for t in range(period):
-        if name == "sawtooth"            
-            if (t < period / 2):
+        if name == "sawtooth":
+                if (t < period / 2):
                 # samples[t] = ((2 * amplitude) / period) * t
                 samples[t] = (amplitude * t) / period
 
             else:
                 samples[t] = (amplitude * t) / period - amplitude
        
-        if name == "sin"
+        if name == "sin":
             samples[t] = int(amplitude * (sin(((2 * pi)/period)* t)))
         
     vis = WaveformVis()
