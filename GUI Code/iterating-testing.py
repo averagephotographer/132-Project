@@ -113,6 +113,9 @@ class Riddles(Frame):
         if (self.counter < len(self.x)):
             self.currentQuestion = self.x[self.counter]
             self.counter += 1
+            GPIO.output(right, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(right, GPIO.LOW)
             self.setupGUI()
 
         else:

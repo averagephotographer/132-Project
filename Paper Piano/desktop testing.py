@@ -18,6 +18,7 @@ MIXER_BUFF = 1024
 frequency = 261.6
 # builds an array of samples for the curent note
 def build_samples():
+    
     # calculate the period and amplitude of the note's wave
     period = int(round(MIXER_FREQ / frequency))
     amplitude = 2 ** (abs(MIXER_SIZE) - 1) - 1
@@ -29,18 +30,21 @@ def build_samples():
 
     #generate the note's samples
     print "period: {}\namplitude: {}\nsamples: {}".format(period, amplitude, samples)
+
     
+    # this is the sawtooth wave
     for t in range(period):
-        # if (t < period / 2):
-        #     samples[t] = (amplitude * t) / period
-        # else:
-        #     samples[t] = ((amplitude * t) / period) - 2
+        if name == "sawtooth"            
+            if (t < period / 2):
+                # samples[t] = ((2 * amplitude) / period) * t
+                samples[t] = (amplitude * t) / period
+
+            else:
+                samples[t] = (amplitude * t) / period - amplitude
+       
+        if name == "sin"
+            samples[t] = int(amplitude * (sin(((2 * pi)/period)* t)))
         
-        
-        samples[t] = int(amplitude * (sin(((2 * pi) / period) * t)))
-
-
-
     vis = WaveformVis()
     vis.visSamples(samples, "waveform_name")
     return samples
