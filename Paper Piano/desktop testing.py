@@ -48,7 +48,7 @@ def build_samples():
             if (t < period / 4):
                 samples[t] = (amplitude * t) / period
             elif (t < period / 2):
-                samples[t] = (amplitude * t) / period - (amplitude / 4)
+                samples[t] = (amplitude * -t) / period + (amplitude / 2)
             elif (t <  (3 * period) / 4):
                 samples[t] = (-amplitude * t) / period + (amplitude / 2)
             else:
