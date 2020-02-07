@@ -1,5 +1,5 @@
 ##################################
-# Name: Christopher Tullier
+# Name: Andres Torres, Sadiat Ibrahim, Christopher Tullier
 # Date: 1/29/2020
 # Description: Paper Piano
 ##################################
