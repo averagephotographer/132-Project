@@ -156,19 +156,25 @@ class Riddles(Frame):
 
 
     def setupGUI(self):
+        if (answers == correct):
+            answer_color = "green"
+        else:
+            answer_color = "red"
+
+        
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center", bg = "lightblue")
         self.l1.grid(row = 0, columnspan = 2)
 
-        self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]), bg = "green")
+        self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]), bg = answer_color)
         self.l2.grid(row = 1, column = 0)
 
-        self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]), bg = "red")
+        self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]), bg = answer_color)
         self.l3.grid(row = 1, column = 1)
 
-        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]), bg = "red")
+        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]), bg = answer_color)
         self.l4.grid(row = 2, column = 0)
 
-        self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]), bg = "red")
+        self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]), bg = answer_color)
         self.l5.grid(row = 2, column = 1)
    
     def play(self):
