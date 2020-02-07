@@ -34,7 +34,7 @@ def build_samples():
     
     # this is the sawtooth wave
     for t in range(period):
-        if name == "sawtooth"            
+        if (name == "sawtooth"):            
             if (t < period / 2):
                 # samples[t] = ((2 * amplitude) / period) * t
                 samples[t] = (amplitude * t) / period
@@ -42,7 +42,7 @@ def build_samples():
             else:
                 samples[t] = (amplitude * t) / period - amplitude
        
-        if name == "sin"
+        if (name == "sin"):
             samples[t] = int(amplitude * (sin(((2 * pi)/period)* t)))
         
     vis = WaveformVis()
