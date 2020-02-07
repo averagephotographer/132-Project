@@ -114,44 +114,12 @@ class Riddles(Frame):
             self.currentQuestion = self.x[self.counter]
             self.counter += 1
             self.setupGUI()
-            # green LED
-##            GPIO.output(correct, GPIO.HIGH)
-##            sleep(0.5)
-##            GPIO.output(correct, GPIO.LOW)
 
         else:
             # turn LED red
             GPIO.output(wrong, GPIO.HIGH)
             sleep(0.5)
             GPIO.output(wrong, GPIO.LOW)
-
-        # elif(self.counter < ):
-        #     if (GPIO.input(buttons[0]) == GPIO.HIGH):
-        #             GPIO.output(correct, GPIO.HIGH)
-        #             sleep(0.5)
-        #             GPIO.output(correct, GPIO.LOW)
-
-        
-        #     for i in range(1,len(buttons)):
-        #         if(GPIO.input(buttons[i]) == GPIO.HIGH):
-        #             GPIO.output(wrong, GPIO.HIGH)
-        
-
-        # # self.answers = [ *a* , b , c , d ]
-        # # some function that returns whether or not our answer was correct
-        # for i in GPIO.input(buttons):
-        #     if (self.answers[0] == self.answers[i]):
-        #         # original answers #    # suffled answers #
-        #         pass
-
-
-        # for i in self.answers:
-        #     if GPIO.input(buttons[i]) == self.answers[0]: 
-        #         pass
-
-
-        # if GPIO.input(buttons[0] == GPIO.HIGH):
-        #     pass
 
 
     def setupGUI(self):
@@ -174,8 +142,6 @@ class Riddles(Frame):
         self.questions()
         self.setupGUI() 
         
-
-
 
 # creates the window
 window = Tk()
