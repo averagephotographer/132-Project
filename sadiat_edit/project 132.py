@@ -4,8 +4,10 @@ from time import sleep
 
 class Q(object):
     def __init__(self, name):
-        self.text = {} ##stores the questions and correct answer in a dictionary
-        self.answers = [] ### contains the options including the correct answer
+        self.text = {} ##stores the dif and correct answer in a dictionary
+        self.answers = []### contains the options including the correct answer
+
+        self.questions = []### contains the questions
 
 
 
@@ -25,10 +27,22 @@ class Q(object):
     def answers(self, string):
         self._answers = string
 
+    @property
+    def questions(self):
+        return self._questions
+
+    @questions.setter
+    def questions(self, string):
+        self._questions = string
+
     
-    def addquestions(self, question, correct): ##adds the question as the key and the correct answer as the data value in the dictionary
-        self._text[question] = correct
+    def addcorrect(self, dif, correct): ##adds the question as the key and the correct answer as the data value in the dictionary
+        self._text[dif] = correct
+        #self._questions = question
         self._answers.append(correct) ## adds the correct answer into the self.answers list
+
+    def addquestions(self, q):
+        self._questions.append(q)
 
     def addoptions(self, a,b,c): ##adds the wrong answers to a list ##adds the wrong answers into the self.answers list
         self._answers.append(a)
@@ -46,6 +60,7 @@ class Q(object):
 class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
+        self.allQuestions = [] ## adds all the question variables into a list
 
     ## creates the 20 questions
     def questions(self):
@@ -56,9 +71,13 @@ class Riddles(Frame):
         q2 = Q("question2")
         q3 = Q("question3")
 
-        q1.addquestions("How are you?", "good") ## calls the add questions function
-        q2.addquestions("who's on first?", "me")
-        q3.addquestions("difficult job?", "computer science")
+        q1.addquestions("How are you?") ## calls the add questions function
+        q2.addquestions("who's on first?")
+        q3.addquestions("difficult job?")
+
+        q1.addcorrect(1, "good")
+        q2.addcorrect(2, "me")
+        q3.addcorrect(3, "computer science")
 
         q1.addoptions("bleh", "okay", "not good" )## calls the add options function
         
@@ -72,15 +91,25 @@ class Riddles(Frame):
         
         q3.shuffle()
 
+        self.questionlist(q1)## append each question into a list
+        self.questionlist(q2)
+        self.questionlist(q3)
 
-        self.currentQuestion = q1
+        self.currentQuestion = self.allQuestions[self.count]
 
 
-    def iterator(self, event): ## iono how to iterate it 
-        pass
+    def questionlist(self, q):
+        self.allQuestions.append(q)
+
+
+    #def iterator(self, event):
+        #if(button == self.currentQuestion.text[self.count]):
+                      
+            
+
 
     def setupGUI(self):
-        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text.keys()), anchor = "center", bg = "lightblue")##sets each question as a \
+        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
         #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
         self.l1.grid(row = 0, columnspan = 2)
 
@@ -107,6 +136,8 @@ window = Tk()
 window.title("How Smart are You?")
 k = Riddles(window)
 k.play()
+#window.bind("<Button-1>", k.iterator)
+
 window.mainloop()
 
         
