@@ -5,11 +5,8 @@ from time import sleep
 class Q(object):
     def __init__(self, name):
         self.text = {} ##stores the dif and correct answer in a dictionary
-        self.answers = []### contains the options including the correct answer
-
-        self.questions = []### contains the questions
-
-
+        self.answers = [] ### contains the options including the correct answer
+        self.questions = [] ### contains the questions
 
     @property
     def text(self):
@@ -104,10 +101,8 @@ class Riddles(Frame):
 
     #def iterator(self, event):
         #if(button == self.currentQuestion.text[self.count]):
+
                       
-            
-
-
     def setupGUI(self):
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
         #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.

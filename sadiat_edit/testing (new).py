@@ -55,7 +55,8 @@ class Q(object):
         self._text = text
         self._dif = dif
 
-    # this should eventually return the question, then four answers in random order
+    # this should eventually return:
+    # The question, then four answers in random order
     def __str__(self):
         return "The question is:\n{} \nAnswers: \na: {} \nb: {} \nc: {} \nd: {}".format(\
             self.allQuestions, self.ans[0], self.ans[1], self.ans[2], self.ans[3])
@@ -88,6 +89,9 @@ class Riddles(Frame):
         q3.addAnswers("What's on second","I don't know's on third", "Why's in left field", "Tomorrow's the pitcher")
         q4.addAnswers("9.3 million", "39 million", "93 million", "193 million")
 
+        
+
+
         # shuffles questions so they appear in random order
         self.x = self.allQuestions
         random.shuffle(self.x)
@@ -117,14 +121,20 @@ class Riddles(Frame):
 
     def greenclick(self):
         self.b1.configure(bg = "green")
-        ## LED code will be here
-    def setStatus(self, status):
-        
         self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
         self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]) )
         self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
         self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
         self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
+
+        ## LED code will be here
+##    def setStatus(self, status):
+##        
+##        self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
+##        self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]) )
+##        self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
+##        self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
+##        self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
 
     
         
@@ -133,7 +143,7 @@ class Riddles(Frame):
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center", bg = "lightblue")
         self.l1.grid(row = 0, columnspan = 2)
     
-        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.ans[0]),command = lambda : self.greenclick())
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.ans[0]), command = lambda : self.greenclick())
         self.b1.grid(row = 1, column = 0)
 
         self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.ans[2]))
@@ -150,12 +160,12 @@ class Riddles(Frame):
 
         
 
-    def delete(self):
-        self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
-        self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]))
-        self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
-        self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
-        self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
+##    def delete(self):
+##        self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
+##        self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]))
+##        self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
+##        self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
+##        self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
 
         
 
