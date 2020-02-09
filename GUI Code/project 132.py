@@ -61,6 +61,7 @@ class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
         self.allQuestions = [] ## adds all the question variables into a list
+        
 
     ## creates the 20 questions
     def questions(self):
@@ -73,11 +74,11 @@ class Riddles(Frame):
 
         q1.addquestions("How are you?") ## calls the add questions function
         q2.addquestions("who's on first?")
-        q3.addquestions("difficult job?")
+        q3.addquestions("what is the most difficult job?")
 
         q1.addcorrect(1, "good")
-        q2.addcorrect(2, "me")
-        q3.addcorrect(3, "computer science")
+        q2.addcorrect(1, "me")
+        q3.addcorrect(1, "computer science")
 
         q1.addoptions("bleh", "okay", "not good" )## calls the add options function
         
@@ -104,26 +105,70 @@ class Riddles(Frame):
 
     #def iterator(self, event):
         #if(button == self.currentQuestion.text[self.count]):
+
+    def process(self, button):
+        if(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
+            self.b1.configure(bg = "green")
+        elif(button == self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
+            self.b2.configure(bg = "green")
+        elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
+            self.b3.configure(bg = "green")
+        elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
+            self.b4.configure(bg = "green")
+
+        #wrong answer
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
+            self.b1.configure(bg = "red")
+            #correct = self.currentQuestion.text[1]     
+        elif(button != self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
+            self.b2.configure(bg = "red")
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
+            self.b3.configure(bg = "red")
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
+            self.b4.configure(bg = "red")
+
+        
+            
+        
+            #self.button = self.currentQuestion.text[1]
+            #self.button.configure(bg = "green")
+
+
+    def next(self, button):
+        self.count += 1
+        if (button == "next"):
+            self.currentQuestion = self.allQuestions[self.count]
+            self.b1.destroy()
+            self.b2.destroy()
+            self.b3.destroy()
+            self.b4.destroy()
+            self.b4.destroy()
+        self.setupGUI()
+        
+        
                       
             
 
 
     def setupGUI(self):
-        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
+        self.display = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
         #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
-        self.l1.grid(row = 0, columnspan = 2)
+        self.display.grid(row = 0,  columnspan = 5)
 
-        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]))
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0]))
         self.b1.grid(row = 1, column = 0)
 
-        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]))
+        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1]))
         self.b2.grid(row = 1, column = 1)
 
-        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]))
+        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2]))
         self.b3.grid(row = 2, column = 0)
 
-        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]))
+        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3]))
         self.b4.grid(row = 2, column = 1)
+
+        self.b5 = Button(window, text = "next", command = lambda : self.next("next"))
+        self.b5.grid(row = 4, column = 2)
 
 
     def play(self):
