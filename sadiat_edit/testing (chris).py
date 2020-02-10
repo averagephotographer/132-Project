@@ -121,7 +121,7 @@ class Riddles(Frame):
             self.b1.configure(bg = "green")
             self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
             
-            self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]) )
+            self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]))
             self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
             self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
             self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
