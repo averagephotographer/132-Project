@@ -156,7 +156,7 @@ class Riddles(Frame):
 
 
     def setupGUI(self):
-        if (answers == correct):
+        if (self.currentQuestion.ans == self.currentQuestion):
             answer_color = "green"
         else:
             answer_color = "red"
