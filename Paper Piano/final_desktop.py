@@ -1,5 +1,5 @@
 ##################################
-# Name: Christopher Tullier
+# Name: Andres Torres, Sadiat Ibrahim, Christopher Tullier
 # Date: 1/29/2020
 # Description: Paper Piano
 ##################################
@@ -53,6 +53,13 @@ def build_samples():
                 samples[t] = (-amplitude * t) / period + (amplitude / 2)
             else:
                 samples[t] = (amplitude * t) / period - amplitude
+        
+        if waveform_name == "square":
+            if (t < period / 2):
+                samples[t] = amplitude
+            else:
+                samples[t] = -amplitude
+
             
 
     vis = WaveformVis()
