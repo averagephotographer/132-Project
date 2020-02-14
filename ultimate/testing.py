@@ -67,16 +67,6 @@ class Riddles(Frame):
         self.count = 0
 
         
-        q1 = Q("Chris1")
-        q2 = Q("Chris2")
-        q3 = Q("Chris3")
-        q4 = Q("Chris4")
-        q5 = Q("Chris5")
-        q6 = Q("Chris6")
-        q7 = Q("Chris7")
-        q8 = Q("Chris8")
-        q9 = Q("Chris9")
-        q10 = Q("Chris10")
         q11 = Q("Sadiat1")
         q12 = Q("Sadiat2")
         q13 = Q("Sadiat3")
@@ -97,6 +87,16 @@ class Riddles(Frame):
         q28 = Q("Andres8")
         q29 = Q("Andres9")
         q30 = Q("Andres10")
+        q1 = Q("Chris1")
+        q2 = Q("Chris2")
+        q3 = Q("Chris3")
+        q4 = Q("Chris4")
+        q5 = Q("Chris5")
+        q6 = Q("Chris6")
+        q7 = Q("Chris7")
+        q8 = Q("Chris8")
+        q9 = Q("Chris9")
+        q10 = Q("Chris10")
  
         
         q1.addquestions("What is the powerhouse of the cell?") ## calls the add questions function
