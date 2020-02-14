@@ -60,33 +60,98 @@ class Riddles(Frame):
 
     ## creates the 20 questions
     def questions(self):
-        # self.currentQuestion 
+        # self.currentQuestion
         self.count = 0
 
-        q1 = Q("question1")
-        q2 = Q("question2")
-        q3 = Q("question3")
+        
+        q1 = Q("Chris1")
+        q1.addquestions("What is the powerhouse of the cell?") ## calls the add questions function
+        q1.addcorrect(1, "mitochondria")
+        q1.addoptions("fitness-gram pacer test", "vacoule", "cell wall" )## calls the add options function
 
+        q2 = Q("Chris2")
+        q2.addquestions("What is President Obama's Last name") ## calls the add questions function
+        q2.addcorrect(1, "Care")
+        q2.addoptions("Barac", "Bush", "Globama" )## calls the add options function
 
-        q1.addquestions("How are you?") ## calls the add questions function
-        q2.addquestions("who's on first?")
-        q3.addquestions("what is the most difficult job?")
+        q3 = Q("Chris3")
+        q3.addquestions("The best High School Musical Movie") ## calls the add questions function
+        q3.addcorrect(1, "High School Musical 2")
+        q3.addoptions("High School Musical", "High School Musical 3", "High School Musical: The Musical: The Series" )## calls the add options function
 
-        q1.addcorrect(1, "good")
-        q2.addcorrect(1, "me")
-        q3.addcorrect(1, "computer science")
+        q4 = Q("Chris4")
+        q4.addquestions("What kind of bird is this?") ## calls the add questions function
+        q4.addcorrect(1, "It's a butterfly")
+        q4.addoptions("It's a bird", "Bird are robots made by the government", "Perigrine Falcon" )## calls the add options function
 
-        q1.addoptions("bleh", "okay", "not good" )## calls the add options function
+        q5 = Q("Chris5")
+        q5.addquestions("Who is the fastest man alive?")
+        q5.addcorrect(1, "Barry Allen")
+        q5.addoptions("Zoom", "Savitar", "The Thinker" )
+
+        # 6
+        q6 = Q("Chris")
+        q6.addquestions("Bears, Beats, _____")
+        q6.addcorrect(1, "Battlestar Galactica!")
+        q6.addoptions("Michale!!!", "Michael!", "Identity theft is not a joke, Jim" )
+
+        # 7
+        q7 = Q("Chris")
+        q7.addquestions("Pac-Man's Original Name")
+        q7.addcorrect(1, "Puck-Man")
+        q7.addoptions("Chuck-Man", "Bite-Man", "Hockey-Man" )
+
+        # 8
+        q8 = Q("Chris")
+        q8.addquestions("How long would it take to fall from Wyly tower?")
+        q8.addcorrect(1, "3.526 seconds")
+        q8.addoptions("12.039 seconds", "93.7 hours", "0.1s seconds" )
+
+        # 9
+        q9 = Q("Chris")
+        q9.addquestions("How many keys are on a piano?")
+        q9.addcorrect(1, "88")
+        q9.addoptions("75", "108", "56" )
+
+        # 10
+        q10 = Q("Chris")
+        q10.addquestions("How many times can you listen to 'Piano Man' in a single day?")
+        q10.addcorrect(1, "254")
+        q10.addoptions("134", "over 9000", "536" )
+        
         
         q1.shuffle() ## calls the shuffle function
-        
-        q2.addoptions("you", "andres", "chris")
-        
         q2.shuffle()
-        
-        q3.addoptions("biology", "physics", "child education" )
-        
         q3.shuffle()
+        q4.shuffle()
+        q5.shuffle()
+        q6.shuffle()
+        q7.shuffle()
+        q8.shuffle()
+        q9.shuffle()
+        q10.shuffle()
+        q11.shuffle()
+        q12.shuffle()
+        q13.shuffle()
+        q14.shuffle()
+        q15.shuffle()
+        q16.shuffle()
+        q17.shuffle()
+        q18.shuffle()
+        q19.shuffle()
+        q20.shuffle()
+        q21.shuffle()
+        q22.shuffle()
+        q23.shuffle()
+        q24.shuffle()
+        q25.shuffle()
+        q26.shuffle()
+        q27.shuffle()
+        q28.shuffle()
+        q29.shuffle()
+        q30.shuffle()
+        
+        
         
         # end screen
         es = Q("endScreen")
