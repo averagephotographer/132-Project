@@ -103,33 +103,40 @@ class Riddles(Frame):
 
 
     def iterator(self, event):
-        
-        Riddles.currentQuestion = self.x[self.count]
-        Riddles.text = Riddles.currentQuestion
-        self.count += 1
-        self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
-        self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]) )
-        self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
-        self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
-        self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
+        if (self.count < len(self.x)):
+            Riddles.currentQuestion = self.x[self.count]
+            Riddles.text = Riddles.currentQuestion
+            self.count += 1
 
-        
+##
+##    def iterator(self, event):
+##        if (self.counter < len(self.x)):
+##            self.currentQuestion = self.x[self.counter]
+##            self.counter += 1
+##            self.setupGUI()
 
-        
-        #self.currentQuestion = self.allQuestions[1]
-        #self.setupGUI()
-        
-        #self.currentQuestion = self.allQuestions[2]
-        #self.setupGUI()
+##    def greenclick(self):
+##        self.b1.configure(bg = "green")
+##        ## LED code will be here
 
-    def process(self, button):
-        if(button == self.currentQuestion.ans[0]):
-            self.b1.configure(bg = "green")
-        ## LED code will be here
+    
+    def answer_color(self):
+        if(self.currentQuestion.ans == self.currentQuestion.ans[0]):
+            bg = "green"
+        elif(self.currentQuestion.ans == self.currentQuestion.ans[1]):
+            bg = "red"
+        elif(self.currentQuestion.ans == self.currentQuestion.ans[2]):
+            bg = "red"
+        elif(self.currentQuestion.ans == self.currentQuestion.ans[3]):
+            bg = "red"
+
+
+
+            
     def setStatus(self, status):
         
         self.l1.configure(text = "Question: \n{}".format(self.currentQuestion.text))
-        self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]) )
+        self.b1.configure(text = "A: {}".format(self.currentQuestion.ans[0]))
         self.b2.configure(text = "B: {}".format(self.currentQuestion.ans[2]))
         self.b3.configure(text = "C: {}".format(self.currentQuestion.ans[1]))
         self.b4.configure(text = "D: {}".format(self.currentQuestion.ans[3]))
@@ -141,16 +148,16 @@ class Riddles(Frame):
         self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center", bg = "lightblue")
         self.l1.grid(row = 0, columnspan = 2)
     
-        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.ans[0]),command = lambda : self.process(self.currentQuestion.ans[0]))
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.ans[0]), command = lambda : self.answer_color())
         self.b1.grid(row = 1, column = 0)
 
-        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.ans[2]))
+        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.ans[2]), command = lambda : self.answer_color())
         self.b2.grid(row = 1, column = 1)
 
-        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.ans[1]))
+        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.ans[1]), command = lambda: self.answer_color())
         self.b3.grid(row = 2, column = 0)
 
-        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.ans[3]))
+        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.ans[3]), command = lambda: self.answer_color())
         self.b4.grid(row = 2, column = 1)
 
 
