@@ -63,8 +63,9 @@ class Riddles(Frame):
 
     ## creates the 20 questions
     def questions(self):
-        # self.currentQuestion
         self.count = 0
+        global currentQuestion
+    
 
         
         q11 = Q("Sadiat1")
@@ -101,19 +102,28 @@ class Riddles(Frame):
         
         q1.addquestions("What is the powerhouse of the cell?") ## calls the add questions function
         q1.addcorrect(1, "mitochondria")
-        q1.addoptions("fitness-gram pacer test", "vacoule", "cell wall" )## calls the add options function
+        q1.addoptions("fitness-gram pacer test", "vacoule", "cell wall" )
+        q1.shuffle()
+
+        ## calls the add options function
         
         q2.addquestions("What is President Obama's Last name") ## calls the add questions function
         q2.addcorrect(1, "Care")
+        q2.shuffle()
+
         q2.addoptions("Barac", "Bush", "Globama" )## calls the add options function
         
         q3.addquestions("The best High School Musical Movie") ## calls the add questions function
         q3.addcorrect(1, "High School Musical 2")
+        q3.shuffle()
+ 
         q3.addoptions("High School Musical", "High School Musical 3", "High School Musical: The Musical: The Series" )## calls the add options function
 
         q4.addquestions("What kind of bird is this?") ## calls the add questions function
         q4.addcorrect(1, "It's a butterfly")
         q4.addoptions("It's a bird", "Bird are robots made by the government", "Perigrine Falcon" )## calls the add options function
+
+        q4.shuffle()
 
         q5.addquestions("Who is the fastest man alive?")
         q5.addcorrect(1, "Barry Allen")
@@ -219,10 +229,15 @@ class Riddles(Frame):
         q30.addcorrect(1, "To infinity and beyond!")
         q30.addoptions("This really is a Toy Story", "What's the deal with toys?", "Buzz")
 
-        
-        for i in self.qlist:
-            i.shuffle()
-            self.questionlist(i)
+        self.questionlist(q1)
+        self.questionlist(q2)
+        self.questionlist(q3)
+        self.questionlist(q4)
+     
+     
+        #for i in self.qlist:
+            #i.shuffle()
+            #self.questionlist(i)
         
 
         self.currentQuestion = self.allQuestions[self.count]
@@ -251,6 +266,7 @@ class Riddles(Frame):
             self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
 
             self.l1.grid(rowspan = 4, columnspan = 6)
+            
             
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
             
@@ -297,8 +313,9 @@ class Riddles(Frame):
         self.count += 1
 
             
-        if (button == "next" and self.count < len(self.allQuestions)):
+        if (button == "next" and self.count <= len(self.allQuestions)):
             self.currentQuestion = self.allQuestions[self.count]
+            self.display.destroy()
             self.b1.destroy()
             self.b2.destroy()
             self.b3.destroy()
@@ -308,7 +325,7 @@ class Riddles(Frame):
             self.setupGUI()
 
         # if (button == "next" and self.count == len(self.allQuestions)): # goes through all questions
-        if (button == "next" and self.count == 3): # goes through less questions
+        if (button == "next" and self.count == 4): # goes through less questions
             self.b1.destroy()
             self.b2.destroy()
             self.b3.destroy()
@@ -317,7 +334,7 @@ class Riddles(Frame):
             self.l1.destroy()
             self.b5.config(text = "Exit", command = window.destroy)
             self.display.destroy()
-            self.end = Label(window, text = "Game over Man", font = ("Courier", 44), anchor = "center", bg = "lightgreen")
+            self.end = Label(window, text = "Game over Man Your Score is {}".format(self.points), font = ("Courier", 44), anchor = "center", bg = "lightgreen")
             self.end.grid(row = 0, columnspan = 5)
 
         

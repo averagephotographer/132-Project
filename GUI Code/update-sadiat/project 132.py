@@ -1,7 +1,17 @@
 from Tkinter import *
 import random
 from time import sleep
+import RPi.GPIO as GPIO
+##setting up the LED and switch pin numbers
+wrong = 22
+correct = 12
 
+### use the Broadcam pin code
+GPIO.setmode(GPIO.BCM)
+
+##SET UP THE led and switch pins
+GPIO.setup(wrong, GPIO.OUT)
+GPIO.setup(correct, GPIO.OUT)
 class Q(object):
     def __init__(self, name):
         self.text = {} ##stores the dif and correct answer in a dictionary
@@ -109,30 +119,59 @@ class Riddles(Frame):
     def process(self, button, window):
         if(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
             self.b1.configure(bg = "green")
+
             
             self.l1 = Label(window , text = "correct !", anchor = "center", bg = "green")
             
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(correct, GPIO.LOW)
+            
             self.l1.grid(rowspan = 4, columnspan = 6)
+            
             
         elif(button == self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
             self.b2.configure(bg = "green")
+           
+
+            
             
             self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
             
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(correct, GPIO.LOW)
+            
             self.l1.grid(rowspan = 4, columnspan = 6)
+            
             
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
             self.b3.configure(bg = "green")
-            self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
+            
 
+            
+            self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(correct, GPIO.LOW)
+            
             self.l1.grid(rowspan = 4, columnspan = 6)
+            
             
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
             
             self.b4.configure(bg = "green")
             
+            
+            
             self.l1 = Label(window, text = "correct", bg = "green")
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(correct, GPIO.LOW)
+            
+            
             self.l1.grid(rowspan = 4, columnspan = 6)
+            
 
         #wrong answer
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
@@ -141,6 +180,9 @@ class Riddles(Frame):
             
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
             
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(wrong, GPIO.LOW)
             self.l1.grid(rowspan = 10, columnspan = 7)
             
             #correct = self.currentQuestion.text[1]     
@@ -150,6 +192,9 @@ class Riddles(Frame):
             
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
             
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(wrong, GPIO.LOW)
             self.l1.grid(rowspan = 10, columnspan = 7)
 
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
@@ -157,7 +202,9 @@ class Riddles(Frame):
             self.b3.configure(bg = "red")
             
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
-            
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(0.5)
+            GPIO.output(wrong, GPIO.LOW)
             self.l1.grid(rowspan = 10, columnspan = 7)
 
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
@@ -165,6 +212,7 @@ class Riddles(Frame):
             
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
             
+            GPIO.output(wrong, GPIO.HIGH)
             self.l1.grid(rowspan = 10, columnspan = 7)
 
 
