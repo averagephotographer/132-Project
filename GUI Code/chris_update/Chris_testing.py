@@ -2,16 +2,15 @@ from Tkinter import *
 import Tkinter
 import random
 from time import sleep
-# import timer
-# from timer import Clock
+import shelve
 
 class Q(object):
-    def __init__(self, name):
+    def __init__(self, name, difficulty):
         self.text = {} ##stores the dif and correct answer in a dictionary
         self.answers = []### contains the options including the correct answer
         self.questions = []### contains the questions
+        self.difficulty = difficulty
         k.allQuestions.append(self)
-        
 
     @property
     def text(self):
@@ -61,41 +60,42 @@ class Riddles(Frame):
 
         # clock stuff
         self.remaining = 0
-        self.countdown = 240
+        self.countdown(20)
+        self.over = False
     
     ## creates the 20 questions
     def questions(self):
         self.count = 0
-        q11 = Q("Sadiat1")
-        q12 = Q("Sadiat2")
-        q13 = Q("Sadiat3")
-        q14 = Q("Sadiat4")
-        q15 = Q("Sadiat5")
-        q16 = Q("Sadiat6")
-        q17 = Q("Sadiat7")
-        q18 = Q("Sadiat8")
-        q19 = Q("Sadiat9")
-        q20 = Q("Sadiat10")
-        q21 = Q("Andres1")
-        q22 = Q("Andres2")
-        q23 = Q("Andres3")
-        q24 = Q("Andres4")
-        q25 = Q("Andres5")
-        q26 = Q("Andres6")
-        q27 = Q("Andres7")
-        q28 = Q("Andres8")
-        q29 = Q("Andres9")
-        q30 = Q("Andres10")
-        q1 = Q("Chris1`")
-        q2 = Q("Chris2")
-        q3 = Q("Chris3")
-        q4 = Q("Chris4")
-        q5 = Q("Chris5")
-        q6 = Q("Chris6")
-        q7 = Q("Chris7")
-        q8 = Q("Chris8")
-        q9 = Q("Chris9")
-        q10 = Q("Chris10")
+        q1 = Q("Chris1", 2)
+        q2 = Q("Chris2", 3)
+        q3 = Q("Chris3", 4)
+        q4 = Q("Chris4", 5)
+        q5 = Q("Chris5", 1)
+        q6 = Q("Chris6", 1)
+        q7 = Q("Chris7", 4)
+        q8 = Q("Chris8", 5)
+        q9 = Q("Chris9", 4)
+        q10 = Q("Chris10", 5)
+        q11 = Q("Sadiat1", 1)
+        q12 = Q("Sadiat2", 2)
+        q13 = Q("Sadiat3", 4)
+        q14 = Q("Sadiat4", 3)
+        q15 = Q("Sadiat5", 1)
+        q16 = Q("Sadiat6", 1)
+        q17 = Q("Sadiat7", 3)
+        q18 = Q("Sadiat8", 3)
+        q19 = Q("Sadiat9", 4)
+        q20 = Q("Sadiat10", 5)
+        q21 = Q("Andres1", 1)
+        q22 = Q("Andres2", 5)
+        q23 = Q("Andres3", 5)
+        q24 = Q("Andres4", 5)
+        q25 = Q("Andres5", 4)
+        q26 = Q("Andres6", 5)
+        q27 = Q("Andres7", 2)
+        q28 = Q("Andres8", 1)
+        q29 = Q("Andres9", 1)
+        q30 = Q("Andres10", 1)
 
         random.shuffle(self.allQuestions)
         
@@ -135,9 +135,9 @@ class Riddles(Frame):
         q9.addCorrect(1, "88")
         q9.addOptions("75", "108", "56" )
 
-        q10.addQuestions("How many times can you listen to 'Bohemian Rhapsody' in a single day?")
-        q10.addCorrect(1, "243")
-        q10.addOptions("134", "42", "536" )
+        q10.addQuestions("How many people are in space as of today?")
+        q10.addCorrect(1, "3")
+        q10.addOptions("0", "1", "2" )
 
         q11.addQuestions("What is the gravity constant on earth?")
         q11.addCorrect(1, "9.81")
@@ -224,6 +224,8 @@ class Riddles(Frame):
             i.shuffle()
 
         self.currentQuestion = self.allQuestions[self.count]
+    
+    
     def process(self, button, window):
         if(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
             self.b1.configure(bg = "green")
@@ -288,42 +290,26 @@ class Riddles(Frame):
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
             
             self.l1.grid(rowspan = 10, columnspan = 7)
+    
+   
     def next(self, button):
         self.count += 1
 
             
         if (button == "next" and self.count < len(self.allQuestions)):
-            self.currentQuestion = self.allQuestions[self.count]
+            self.currentQuestion = self.allQuestions[self.count]         
             self.b1.destroy()
             self.b2.destroy()
             self.b3.destroy()
             self.b4.destroy()
             self.b4.destroy()
-            if "self.l1" in dir(Riddles):
-                self.l1.destroy()
             self.display.destroy()
+            self.l1.destroy()
             self.setupGUI()
 
         # we're in the endgame now
-        if (button == "next" and self.count == 3): # goes through less questions
-            self.b1.destroy()
-            self.b2.destroy()
-            self.b3.destroy()
-            self.b4.destroy()
-            self.b4.destroy()
-            if "self.l1" in dir(Riddles): # keeps game from crashing when you click next without answering
-                self.l1.destroy()
-            self.b5.config(text = "Exit", command = window.destroy)
-            self.display.destroy()
-            self.end = Label(window, text = "Game over Man!", font = ("Courier", 44), anchor = "center", bg = "lightgreen")
-            self.end.grid(row = 0, columnspan = 5)
-            
-            if self.points == 1:
-                self.score = Label(window, text = "You scored {} point!".format(self.points), font = ("Courier", 30), anchor = "center", bg = "lightgreen")
-            else:
-                self.score = Label(window, text = "You scored {} points!".format(self.points), font = ("Courier", 30), anchor = "center", bg = "lightgreen")
-            
-            self.score.grid(row = 2, columnspan = 5)
+        if (button == "next" and self.count >= 1): # goes through less questions
+            self.gameOver()
                 
     def setupGUI(self):
         
@@ -346,25 +332,73 @@ class Riddles(Frame):
         self.b5 = Button(window, text = "next", command = lambda : self.next("next"))
         self.b5.grid(row = 10, column = 2)
         
+        self.l1 = Label(window, text = "") # init's the l1 so the game dones't crash if user accidentally clicks next button
 
     def countdown(self, remaining = None):
         if remaining is not None:
             self.remaining = remaining
 
         if self.remaining <= 0:
-            self.clock.config(text="time's up!")
-            self.over = True
-        else:
-            self.clock = Label(text="%d:%d" % (int(self.remaining / 60), (self.remaining - int(self.remaining / 60) * 60 )))
-            self.clock.grid(row = 0, colum = 1)
+            self.gameOver()
+            
+        elif self.remaining > 0:
+            self.clock = Label(text="Time left: %d:%d" % (int(self.remaining / 60), (self.remaining - int(self.remaining / 60) * 60 )))
+            self.clock.grid(row = 10, column = 0)
             self.remaining = self.remaining - 1
             self.after(1000, self.countdown)
     
     def play(self):
         self.questions()
         self.setupGUI()
-        # self.countdown(240)
 
+    def gameOver(self):
+            self.b1.destroy()
+            self.b2.destroy()
+            self.b3.destroy()
+            self.b4.destroy()
+            self.b4.destroy()
+            self.display.destroy()
+            self.clock.destroy()
+            self.l1.destroy()
+            self.b5.config(text = "Exit", command = window.destroy)
+            self.end = Label(window, text = "GAME OVER", font = ("Courier", 44), anchor = "center", bg = "lightgreen")
+            self.end.grid(row = 0, column = 0, columnspan = 5)
+            
+            if self.points == 1:
+                self.score = Label(window, text = "You scored {} point!".format(self.points), font = ("Courier", 30), anchor = "center", bg = "lightgreen")
+            else:
+                self.score = Label(window, text = "You scored {} points!".format(self.points), font = ("Courier", 30), anchor = "center", bg = "lightgreen")
+            
+            self.score.grid(row = 2, column = 0, columnspan = 5)
+
+            self.highscores()
+
+            self.getName()
+    
+    # this makes a tkinter entry that allows the user to save their score
+    def getName(self):
+        self.name = Label(window, text = "ENTER YOUR NAME: ")
+        self.name.grid(row = 3, column = 0)
+        self.string = StringVar()
+        self.input = Entry(window, textvariable = self.string).grid(row = 3, column = 1)
+        enterName = Button(window, text = "Enter", command = self.getValue).grid(row = 3, column = 2)
+
+    # this stores a file with the scores in it
+    def save(self, score, name):
+        s = shelve.open("score.txt")
+        s[name] = score
+        s.close()
+
+    def getValue(self):
+        # the player's name
+        var = self.string.get()
+        self.save(self.points, var)
+
+    # displays high scores
+    def highscores(self):
+        s = shelve.open("score.txt")
+        for key in s:
+            highscores = Label(window, text = "{}: {}".format(key, s[key])).grid(row = 4, column = 1)
 
 window = Tk()
 window.title("How Smart are You?")
