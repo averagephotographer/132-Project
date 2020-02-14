@@ -106,26 +106,67 @@ class Riddles(Frame):
     #def iterator(self, event):
         #if(button == self.currentQuestion.text[self.count]):
 
-    def process(self, button):
+    def process(self, button, window):
         if(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
             self.b1.configure(bg = "green")
+            
+            self.l1 = Label(window , text = "correct !", anchor = "center", bg = "green")
+            
+            self.l1.grid(rowspan = 4, columnspan = 6)
+            
         elif(button == self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
             self.b2.configure(bg = "green")
+            
+            self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
+            
+            self.l1.grid(rowspan = 4, columnspan = 6)
+            
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
             self.b3.configure(bg = "green")
+            self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
+
+            self.l1.grid(rowspan = 4, columnspan = 6)
+            
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
+            
             self.b4.configure(bg = "green")
+            
+            self.l1 = Label(window, text = "correct", bg = "green")
+            self.l1.grid(rowspan = 4, columnspan = 6)
 
         #wrong answer
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
+            
             self.b1.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+            
             #correct = self.currentQuestion.text[1]     
         elif(button != self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
+            
             self.b2.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
+            
             self.b3.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
             self.b4.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+
 
         
             
@@ -136,14 +177,31 @@ class Riddles(Frame):
 
     def next(self, button):
         self.count += 1
+        
+            
         if (button == "next"):
+            
             self.currentQuestion = self.allQuestions[self.count]
             self.b1.destroy()
             self.b2.destroy()
             self.b3.destroy()
             self.b4.destroy()
             self.b4.destroy()
+            self.l1.destroy()
         self.setupGUI()
+                
+
+            
+        
+            
+##        if (button == "next"):
+##            self.currentQuestion = self.allQuestions[self.count]
+##            self.b1.destroy()
+##            self.b2.destroy()
+##            self.b3.destroy()
+##            self.b4.destroy()
+##            self.b4.destroy()
+        #self.setupGUI()
         
         
                       
@@ -151,29 +209,49 @@ class Riddles(Frame):
 
 
     def setupGUI(self):
+        self.count += 1
         self.display = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
         #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
         self.display.grid(row = 0,  columnspan = 5)
 
-        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0]))
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0], window))
         self.b1.grid(row = 1, column = 0)
 
-        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1]))
+        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1], window))
         self.b2.grid(row = 1, column = 1)
 
-        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2]))
+        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2], window))
         self.b3.grid(row = 2, column = 0)
 
-        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3]))
+        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3], window))
         self.b4.grid(row = 2, column = 1)
 
         self.b5 = Button(window, text = "next", command = lambda : self.next("next"))
-        self.b5.grid(row = 4, column = 2)
+        self.b5.grid(row = 10, column = 2)
+
+##        if (self.count > 3):
+##            self.display.destroy()
+##            self.b1.destroy()
+##            self.b2.destroy()
+##            self.b3.destroy()
+##            self.b4.destroy()
+##            self.b5.destroy()
+##
+##            self.l1 = Label(window, text = "Game Over", anchor = "center", bg = "red")
 
 
     def play(self):
         self.questions()
         self.setupGUI()
+##        if (self.count >= 3):
+##            self.display.destroy()
+##            self.b1.destroy()
+##            self.b2.destroy()
+##            self.b3.destroy()
+##            self.b4.destroy()
+##            self.b5.destroy()
+##
+##            self.l1 = Label(window, text = "Game Over", anchor = "center", bg = "red")
 
 
 
