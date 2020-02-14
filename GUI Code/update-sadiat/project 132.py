@@ -65,7 +65,7 @@ class Riddles(Frame):
 
     ## creates the 20 questions
     def questions(self):
-        global currentQuestion
+        # self.currentQuestion 
         self.count = 0
 
         q1 = Q("question1")
@@ -168,18 +168,14 @@ class Riddles(Frame):
             self.l1.grid(rowspan = 10, columnspan = 7)
 
 
-        
-            
-        
             #self.button = self.currentQuestion.text[1]
             #self.button.configure(bg = "green")
 
 
     def next(self, button):
         self.count += 1
-        
-            
-        if (button == "next"):
+
+        if (button == "next" and self.count < len(self.allQuestions)):
             
             self.currentQuestion = self.allQuestions[self.count]
             self.b1.destroy()
@@ -209,7 +205,6 @@ class Riddles(Frame):
 
 
     def setupGUI(self):
-        self.count += 1
         self.display = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
         #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
         self.display.grid(row = 0,  columnspan = 5)

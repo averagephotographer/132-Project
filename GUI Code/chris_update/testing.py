@@ -1,34 +1,12 @@
-# This is the skeleton for the Riddles GUI
 from Tkinter import *
 import random
 from time import sleep
-##import RPi.GPIO as GPIO
-DEBUG = False
 
-#Setting up the LED and switch pin numbers
-wrong = 22
-correct = 20
-buttons = [12, 16, 24, 26]
-
-###Use the Broadcam pin code
-##GPIO.setmode(GPIO.BCM)
-##
-###Setup the LED and switch pins
-##GPIO.setup(wrong, GPIO.OUT)
-##GPIO.setup(correct, GPIO.OUT)
-##GPIO.setup(buttons, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-
-# question class
 class Q(object):
-    # inputs the question number and the answer
     def __init__(self, name):
-        self.text = ""                  # this is the question's text
-        self.ans = []                   # all 4 answers are saved in a list with the correct answer listed first        
-        self.dif = ""                   # this is the difficutly rating (from 1-20)
-        k.allQuestions.append(self)
-        if DEBUG == True:
-            print "text: {}, dif: {}".format(self.text, self.dif)
-
+        self.text = {} ##stores the dif and correct answer in a dictionary
+        self.answers = []### contains the options including the correct answer
+        self.questions = []### contains the questions
 
     @property
     def text(self):
@@ -37,155 +15,221 @@ class Q(object):
     @text.setter
     def text(self, string):
         self._text = string
-    
+
     @property
-    def dif(self):
-        return self._dif
-    
-    @dif.setter
-    def dif(self, value):
-        self._dif = value
-    
+    def answers(self):
+        return self._answers
+
+    @answers.setter
+    def answers(self, string):
+        self._answers = string
+
     @property
-    def ans(self):
-        return self._ans
-    
-    @ans.setter
-    def ans(self, value):
-        self._ans = value
-    
-    def addAnswers(self, a, b, c, d):
-        self.ans = [a, b, c, d]
-        if DEBUG == True:
-            print self._ans
+    def questions(self):
+        return self._questions
 
+    @questions.setter
+    def questions(self, string):
+        self._questions = string
 
-    def addQuestions(self, text, dif):
-        self._text = text
-        self._dif = dif
+    def addcorrect(self, dif, correct): ##adds the question as the key and the correct answer as the data value in the dictionary
+        self._text[dif] = correct
+        #self._questions = question
+        self._answers.append(correct) ## adds the correct answer into the self.answers list
 
-    # this should eventually return:
-    # The question, then four answers in random order
+    def addquestions(self, q):
+        self._questions.append(q)
+
+    def addoptions(self, a,b,c): ##adds the wrong answers to a list ##adds the wrong answers into the self.answers list
+        self._answers.append(a)
+        self._answers.append(b)
+        self._answers.append(c)
+
+    def shuffle(self):
+        random.shuffle(self.answers) ## function that shuffles the answers
+
     def __str__(self):
-        return "The question is:\n{} \nAnswers: \na: {} \nb: {} \nc: {} \nd: {}".format(\
-            self.text, self.ans[0], self.ans[1], self.ans[2], self.ans[3])
+        pass
 
-
-# this is the game function
+#this is the game function
 class Riddles(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
+        self.allQuestions = [] ## adds all the question variables into a list
+        
 
-    # creates the  20 questions
+    ## creates the 20 questions
     def questions(self):
-        self.allQuestions = []
-        self.counter = 1
+        # self.currentQuestion 
+        self.count = 0
 
         q1 = Q("question1")
         q2 = Q("question2")
         q3 = Q("question3")
-        q4 = Q("question4")
 
+
+        q1.addquestions("How are you?") ## calls the add questions function
+        q2.addquestions("who's on first?")
+        q3.addquestions("what is the most difficult job?")
+
+        q1.addcorrect(1, "good")
+        q2.addcorrect(1, "me")
+        q3.addcorrect(1, "computer science")
+
+        q1.addoptions("bleh", "okay", "not good" )## calls the add options function
         
-        q1.addQuestions("How are you?", 0)
-        q2.addQuestions("What is the most difficult thing you can think of?", 20)
-        q3.addQuestions("Who's on first?", 12)
-        q4.addQuestions("The earth is approximately how many miles from the Sun?", 12)
-        #######################
-        q1.addAnswers("Good", "okay, I guess", "Great", "bleh")
-        q2.addAnswers("Rocket Science", "Neurosicence", "Computer Science", "*insert hard job here")
-        q3.addAnswers("What's on second","I don't know's on third", "Why's in left field", "Tomorrow's the pitcher")
-        q4.addAnswers("9.3 million", "39 million", "93 million", "193 million")
+        q1.shuffle() ## calls the shuffle function
+        
+        q2.addoptions("you", "andres", "chris")
+        
+        q2.shuffle()
+        
+        q3.addoptions("biology", "physics", "child education" )
+        
+        q3.shuffle()
+        
+        # end screen
+        es = Q("endScreen")
 
 
-        # shuffles questions so they appear in random order
-        self.x = self.allQuestions
-        random.shuffle(self.x)
+        self.questionlist(q1) ## append each question into a list
+        self.questionlist(q2)
+        self.questionlist(q3)
+        
 
-        # sets the current question 
-        self.currentQuestion = self.x[0]
-
-        if DEBUG == True:
-            print "current: {}, \n\nall: {}".format(self.currentQuestion, self.allQuestions)
+        self.currentQuestion = self.allQuestions[self.count]
 
 
-    def iterator(self, event):
-        if (self.counter < len(self.x)):
-            self.currentQuestion = self.x[self.counter]
-            self.counter += 1
+    def questionlist(self, q):
+        self.allQuestions.append(q)
+
+    def process(self, button, window):
+        if(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
+            self.b1.configure(bg = "green")
+            
+            self.l1 = Label(window , text = "correct !", anchor = "center", bg = "green")
+            
+            self.l1.grid(rowspan = 4, columnspan = 6)
+            
+        elif(button == self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
+            self.b2.configure(bg = "green")
+            
+            self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
+            
+            self.l1.grid(rowspan = 4, columnspan = 6)
+            
+        elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
+            self.b3.configure(bg = "green")
+            self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
+
+            self.l1.grid(rowspan = 4, columnspan = 6)
+            
+        elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
+            
+            self.b4.configure(bg = "green")
+            
+            self.l1 = Label(window, text = "correct", bg = "green")
+            self.l1.grid(rowspan = 4, columnspan = 6)
+
+        #wrong answer
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
+            
+            self.b1.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+            
+            #correct = self.currentQuestion.text[1]     
+        elif(button != self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
+            
+            self.b2.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
+            
+            self.b3.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
+            self.b4.configure(bg = "red")
+            
+            self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
+            
+            self.l1.grid(rowspan = 10, columnspan = 7)
+
+
+    def next(self, button):
+        self.count += 1
+
+            
+        if (button == "next" and self.count < len(self.allQuestions)):
+            self.currentQuestion = self.allQuestions[self.count]
+            self.b1.destroy()
+            self.b2.destroy()
+            self.b3.destroy()
+            self.b4.destroy()
+            self.b4.destroy()
+            self.l1.destroy()
             self.setupGUI()
-            # green LED
-##            GPIO.output(correct, GPIO.HIGH)
-##            sleep(0.5)
-##            GPIO.output(correct, GPIO.LOW)
 
-        else:
-            # turn LED red
-            GPIO.output(wrong, GPIO.HIGH)
-            sleep(0.5)
-            GPIO.output(wrong, GPIO.LOW)
-
-        # elif(self.counter < ):
-        #     if (GPIO.input(buttons[0]) == GPIO.HIGH):
-        #             GPIO.output(correct, GPIO.HIGH)
-        #             sleep(0.5)
-        #             GPIO.output(correct, GPIO.LOW)
+        if (button == "next" and self.count == len(self.allQuestions)):
+            self.b1.destroy()
+            self.b2.destroy()
+            self.b3.destroy()
+            self.b4.destroy()
+            self.b4.destroy()
+            self.l1.destroy()
+            self.b5.config(text = "Exit", command = window.destroy)
+            self.display.destroy()
+            self.end = Label(window, text = "Game over Man", font = ("Courier", 44), anchor = "center", bg = "lightgreen")
+            self.end.grid(row = 0, columnspan = 5)
 
         
-        #     for i in range(1,len(buttons)):
-        #         if(GPIO.input(buttons[i]) == GPIO.HIGH):
-        #             GPIO.output(wrong, GPIO.HIGH)
-        
-
-        # # self.answers = [ *a* , b , c , d ]
-        # # some function that returns whether or not our answer was correct
-        # for i in GPIO.input(buttons):
-        #     if (self.answers[0] == self.answers[i]):
-        #         # original answers #    # suffled answers #
-        #         pass
-
-
-        # for i in self.answers:
-        #     if GPIO.input(buttons[i]) == self.answers[0]: 
-        #         pass
-
-
-        # if GPIO.input(buttons[0] == GPIO.HIGH):
-        #     pass
+            
+                
 
 
     def setupGUI(self):
-        self.l1 = Label(window, text = "Question: \n{}".format(self.currentQuestion.text), anchor = "center", bg = "lightblue")
-        self.l1.grid(row = 0, columnspan = 2)
+        self.display = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
+        #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
+        self.display.grid(row = 0,  columnspan = 5)
 
-        self.l2 = Label(window, text = "A: {}".format(self.currentQuestion.ans[0]), bg = "green")
-        self.l2.grid(row = 1, column = 0)
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0], window))
+        self.b1.grid(row = 1, column = 0)
 
-        self.l3 = Label(window, text = "B: {}".format(self.currentQuestion.ans[2]), bg = "red")
-        self.l3.grid(row = 1, column = 1)
+        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1], window))
+        self.b2.grid(row = 1, column = 1)
 
-        self.l4 = Label(window, text = "C: {}".format(self.currentQuestion.ans[1]), bg = "red")
-        self.l4.grid(row = 2, column = 0)
+        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2], window))
+        self.b3.grid(row = 2, column = 0)
 
-        self.l5 = Label(window, text = "D: {}".format(self.currentQuestion.ans[3]), bg = "red")
-        self.l5.grid(row = 2, column = 1)
-   
+        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3], window))
+        self.b4.grid(row = 2, column = 1)
+
+        self.b5 = Button(window, text = "next", command = lambda : self.next("next"))
+        self.b5.grid(row = 10, column = 2)
+
+
     def play(self):
         self.questions()
-        self.setupGUI() 
-        
+        self.setupGUI()
 
 
-
-# creates the window
 window = Tk()
-
-window.title("How Smart Are You?")
-
+window.title("How Smart are You?")
 k = Riddles(window)
-
 k.play()
-
-window.bind("<Button-1>", k.iterator)
+#window.bind("<Button-1>", k.iterator)
 
 window.mainloop()
+
+        
+        
+    
