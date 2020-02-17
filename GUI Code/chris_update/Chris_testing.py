@@ -308,7 +308,7 @@ class Riddles(Frame):
             self.setupGUI()
 
         # we're in the endgame now
-        if (button == "next" and self.count >= 1): # goes through less questions
+        if (button == "next" and self.count >= 3): # goes through less questions
             self.gameOver()
                 
     def setupGUI(self):
@@ -401,7 +401,7 @@ class Riddles(Frame):
             highscores = Label(window, text = "{}: {}".format(key, s[key])).grid(row = 4, column = 1)
 
 window = Tk()
-window.title("How Smart are You?")
+window.title("%dx%d+0+0" % (window.winfo_screenwidth(), window.screenheight()))
 
 k = Riddles(window)
 k.play()
