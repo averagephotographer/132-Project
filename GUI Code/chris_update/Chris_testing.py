@@ -61,7 +61,7 @@ class Riddles(Frame):
 
         # clock stuff
         self.remaining = 0
-        self.countdown = 240
+        self.countdown(240)
     
     ## creates the 20 questions
     def questions(self):
@@ -355,8 +355,8 @@ class Riddles(Frame):
             self.clock.config(text="time's up!")
             self.over = True
         else:
-            self.clock = Label(text="%d:%d" % (int(self.remaining / 60), (self.remaining - int(self.remaining / 60) * 60 )))
-            self.clock.grid(row = 0, colum = 1)
+            self.clock = Label(text="Time left: %d:%d" % (int(self.remaining / 60), (self.remaining - int(self.remaining / 60) * 60 )))
+            self.clock.grid(row = 5, column = 0)
             self.remaining = self.remaining - 1
             self.after(1000, self.countdown)
     
