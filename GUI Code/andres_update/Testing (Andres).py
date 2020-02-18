@@ -419,7 +419,7 @@ class Riddles(Frame):
             self.b6 = Button(text = "Exit", command = window.destroy)
             self.b6.pack(fill = Y, expand = True)
 
-            if(self.points == 1):
+            if (self.points == 1):
                 self.score = Label(window, text = "You scored {} point!".format(self.points), \
                                    font = ("Courier", 30), anchor = "center", bg = "lightgreen")
             else:
@@ -512,12 +512,11 @@ class Riddles(Frame):
         self.setupGUI()
 
 
-window = Tk()
+window = Tk() 
 window.title("How Smart are You?")
 window.geometry("%dx%d+0+0" % (window.winfo_screenwidth(), window.winfo_screenheight()))
 k = Riddles(window)
 k.play()
-#window.bind("<Button-1>", k.iterator)
 
 window.mainloop()
 

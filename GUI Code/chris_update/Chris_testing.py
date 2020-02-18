@@ -3,6 +3,19 @@ import Tkinter
 import random
 from time import sleep
 import shelve
+import RPi.GPIO as GPIO
+
+
+##setting up the LED
+wrong = 22
+correct = 12
+
+##use the broadcam pin code
+GPIO.setmode(GPIO.BCM)
+
+##Setup the LED and switch pins
+GPIO.setup(wrong, GPIO.OUT)
+GPIO.setup(correct, GPIO.OUT)
 
 class Q(object):
     def __init__(self, name, difficulty):
@@ -135,9 +148,9 @@ class Riddles(Frame):
         q9.addCorrect(1, "88")
         q9.addOptions("75", "108", "56" )
 
-        q10.addQuestions("How many people are in space as of today?")
-        q10.addCorrect(1, "3")
-        q10.addOptions("0", "1", "2" )
+        q10.addQuestions("How many people have been on the moon?")
+        q10.addCorrect(1, "12")
+        q10.addOptions("3", "7", "9" )
 
         q11.addQuestions("What is the gravity constant on earth?")
         q11.addCorrect(1, "9.81")
@@ -228,75 +241,83 @@ class Riddles(Frame):
     
     def process(self, button, window):
         if(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
-            self.b1.configure(bg = "green")
             self.points += 1
-            
+            self.b1.configure(bg = "green")
             self.l1 = Label(window , text = "correct !", anchor = "center", bg = "green")
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(correct, GPIO.LOW)
+
+            self.l1.grid(row = 4, columnspan = 2)
             
-            self.l1.grid(rowspan = 4, columnspan = 6)
-            
-        elif(button == self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
+        elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[1]):
             self.points += 1
             self.b2.configure(bg = "green")
-            
             self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
-            
-            self.l1.grid(rowspan = 4, columnspan = 6)
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(correct, GPIO.LOW)
+            self.l1.grid(row = 4, columnspan = 2)
             
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
             self.points += 1
             self.b3.configure(bg = "green")
             self.l1 = Label(window, text = "correct!", anchor = "center", bg = "green")
-
-            self.l1.grid(rowspan = 4, columnspan = 6)
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(correct, GPIO.LOW)
+            self.l1.grid(row = 5, columnspan = 2)
             
         elif(button == self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
             self.points += 1
-            
             self.b4.configure(bg = "green")
-            
             self.l1 = Label(window, text = "correct", bg = "green")
-            self.l1.grid(rowspan = 4, columnspan = 6)
+            GPIO.output(correct, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(correct, GPIO.LOW)
+            self.l1.grid(row = 5, columnspan = 2)
 
-        #wrong answer
+        #wrong answers
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[0]):
-            
             self.b1.configure(bg = "red")
-            
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
-            
-            self.l1.grid(rowspan = 10, columnspan = 7)
-            
-            #correct = self.currentQuestion.text[1]     
-        elif(button != self.currentQuestion.text[1]and button == self.currentQuestion.answers[1]):
-            
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(wrong, GPIO.LOW)
+            self.l1.grid(row = 4, columnspan = 2)
+
+        elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[1]):
             self.b2.configure(bg = "red")
-            
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
-            
-            self.l1.grid(rowspan = 10, columnspan = 7)
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(wrong, GPIO.LOW)
+            self.l1.grid(row = 4, columnspan = 2)
 
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[2]):
-            
             self.b3.configure(bg = "red")
-            
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
-            
-            self.l1.grid(rowspan = 10, columnspan = 7)
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(wrong, GPIO.LOW)
+            self.l1.grid(row = 5, columnspan = 2)
 
         elif(button != self.currentQuestion.text[1] and button == self.currentQuestion.answers[3]):
             self.b4.configure(bg = "red")
-            
             self.l1 = Label(window, text = "wrong, the correct answer is ({})".format(self.currentQuestion.text[1]) , anchor = "center", bg = "red")
-            
-            self.l1.grid(rowspan = 10, columnspan = 7)
-    
+            GPIO.output(wrong, GPIO.HIGH)
+            sleep(1.0)
+            GPIO.output(wrong, GPIO.LOW)
+            self.l1.grid(row = 5, columnspan = 2)
    
     def next(self, button):
         self.count += 1
+        # we're in the endgame now
+        # displays the ending screen
+        if (button == "next" and self.count >= 3): # how many questions to go through
+            self.gameOver()
 
-            
-        if (button == "next" and self.count < len(self.allQuestions)):
+        elif (button == "next" and self.count < len(self.allQuestions)):
             self.currentQuestion = self.allQuestions[self.count]         
             self.b1.destroy()
             self.b2.destroy()
@@ -307,30 +328,26 @@ class Riddles(Frame):
             self.l1.destroy()
             self.setupGUI()
 
-        # we're in the endgame now
-        if (button == "next" and self.count >= 3): # goes through less questions
-            self.gameOver()
                 
     def setupGUI(self):
-        
-        self.display = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue")##sets each question as a \
-        #label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
-        self.display.grid(row = 0,  columnspan = 5)
+        self.display = Label(window, text = "Question: \n{}".format(self.currentQuestion.questions[0]), anchor = "center", bg = "lightblue", font = ("Times New Roman", 15))
+        self.display.grid(row = 0,  column = 0, columnspan = 2)
+        # sets each question as label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
 
-        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0], window))
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0], window), height = 10, width = 30, font = ("Times New Roman", 13))
         self.b1.grid(row = 1, column = 0)
 
-        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1], window))
+        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1], window), height = 10, width = 30, font = ("Times New Roman", 13))
         self.b2.grid(row = 1, column = 1)
 
-        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2], window))
+        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2], window), height = 10, width = 30, font = ("Times New Roman", 13))
         self.b3.grid(row = 2, column = 0)
 
-        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3], window))
+        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3], window), height = 10, width = 30, font = ("Times New Roman", 13))
         self.b4.grid(row = 2, column = 1)
 
         self.b5 = Button(window, text = "next", command = lambda : self.next("next"))
-        self.b5.grid(row = 10, column = 2)
+        self.b5.grid(row = 4, column = 1, sticky = E)
         
         self.l1 = Label(window, text = "") # init's the l1 so the game dones't crash if user accidentally clicks next button
 
@@ -343,7 +360,7 @@ class Riddles(Frame):
             
         elif self.remaining > 0:
             self.clock = Label(text="Time left: %d:%d" % (int(self.remaining / 60), (self.remaining - int(self.remaining / 60) * 60 )))
-            self.clock.grid(row = 10, column = 0)
+            self.clock.grid(row = 4, column = 0, sticky = W)
             self.remaining = self.remaining - 1
             self.after(1000, self.countdown)
     
@@ -356,20 +373,20 @@ class Riddles(Frame):
             self.b2.destroy()
             self.b3.destroy()
             self.b4.destroy()
-            self.b4.destroy()
             self.display.destroy()
             self.clock.destroy()
             self.l1.destroy()
             self.b5.config(text = "Exit", command = window.destroy)
+            self.b5.grid_configure(column = 3, sticky = E)
             self.end = Label(window, text = "GAME OVER", font = ("Courier", 44), anchor = "center", bg = "lightgreen")
-            self.end.grid(row = 0, column = 0, columnspan = 5)
+            self.end.grid(row = 0, columnspan = 3)
             
             if self.points == 1:
                 self.score = Label(window, text = "You scored {} point!".format(self.points), font = ("Courier", 30), anchor = "center", bg = "lightgreen")
             else:
                 self.score = Label(window, text = "You scored {} points!".format(self.points), font = ("Courier", 30), anchor = "center", bg = "lightgreen")
             
-            self.score.grid(row = 2, column = 0, columnspan = 5)
+            self.score.grid(row = 2, columnspan = 3)
 
             self.highscores()
 
@@ -401,9 +418,10 @@ class Riddles(Frame):
             highscores = Label(window, text = "{}: {}".format(key, s[key])).grid(row = 4, column = 1)
 
 window = Tk()
-window.title("%dx%d+0+0" % (window.winfo_screenwidth(), window.screenheight()))
+# window.attributes("-fullscreen", True)
 
 k = Riddles(window)
+
 k.play()
 
 window.mainloop()
