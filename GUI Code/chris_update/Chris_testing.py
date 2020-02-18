@@ -334,16 +334,16 @@ class Riddles(Frame):
         self.display.grid(row = 0,  column = 0, columnspan = 2)
         # sets each question as label by calling its key from the dictionary.if it is confusing you can check the lectures on "more on data" on moodle.
 
-        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0], window), height = 10, width = 30, font = ("Times New Roman", 13))
+        self.b1 = Button(window, text = "A: {}".format(self.currentQuestion.answers[0]), command = lambda: self.process(self.currentQuestion.answers[0], window), height = 7, width = 30, font = ("Times New Roman", 13))
         self.b1.grid(row = 1, column = 0)
 
-        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1], window), height = 10, width = 30, font = ("Times New Roman", 13))
+        self.b2 = Button(window, text = "B: {}".format(self.currentQuestion.answers[1]), command = lambda: self.process(self.currentQuestion.answers[1], window), height = 7, width = 30, font = ("Times New Roman", 13))
         self.b2.grid(row = 1, column = 1)
 
-        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2], window), height = 10, width = 30, font = ("Times New Roman", 13))
+        self.b3 = Button(window, text = "C: {}".format(self.currentQuestion.answers[2]), command = lambda: self.process(self.currentQuestion.answers[2], window), height = 7, width = 30, font = ("Times New Roman", 13))
         self.b3.grid(row = 2, column = 0)
 
-        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3], window), height = 10, width = 30, font = ("Times New Roman", 13))
+        self.b4 = Button(window, text = "D: {}".format(self.currentQuestion.answers[3]), command = lambda: self.process(self.currentQuestion.answers[3], window), height = 7, width = 30, font = ("Times New Roman", 13))
         self.b4.grid(row = 2, column = 1)
 
         self.b5 = Button(window, text = "next", command = lambda : self.next("next"))
@@ -412,13 +412,15 @@ class Riddles(Frame):
         self.save(self.points, var)
 
     # displays high scores
+    # this doesn't work on the pi for some reason
+    # note: if you comment out the GUI bits of the code, the highscore fn will work
     def highscores(self):
         s = shelve.open("score.txt")
         for key in s:
             highscores = Label(window, text = "{}: {}".format(key, s[key])).grid(row = 4, column = 1)
 
 window = Tk()
-# window.attributes("-fullscreen", True)
+window.attributes("-fullscreen", True)
 
 k = Riddles(window)
 
